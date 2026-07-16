@@ -205,11 +205,6 @@
         animation-play-state: running;
     }
 
-    /* Menyembunyikan player iframe SoundCloud dari layar */
-    #sc-player {
-        display: none;
-    }
-
     /* ==================== FALLING PETALS ANIMATION ==================== */
     #petal-container {
         position: fixed;
@@ -669,8 +664,8 @@
 </head>
 <body>
 
-<!-- Iframe Player SoundCloud API Tersembunyi (Link Pilihanmu Terpasang) -->
-<iframe id="sc-player" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/926673514&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false" allow="autoplay"></iframe>
+<!-- AKALAN DIRECT STREAM LINK: Memanggil file audio Backstreet Boys secara langsung dari hosting aman CDN -->
+<audio id="weddingMusic" src="https://pub-c5e31b5cdafb419a86a69d5d340a9da5.r2.dev/Backstreet%20Boys%20-%20Shape%20Of%20My%20Heart.mp3" loop></audio>
 
 <!-- Floating Audio Controller Button -->
 <div id="musicPlayer" class="music-player" onclick="toggleMusic()">
@@ -902,46 +897,20 @@
 
 <p class="copyright-text">Copyright &copy; 2026 Rezi Ichsan — All Rights Reserved</p>
 
-<!-- Load API SoundCloud SDK Resmi -->
-<script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
-
 <!-- JavaScript Logic Terintegrasi -->
 <script>
-  let widget;
-  let isPlaying = false;
+  const myAudio = document.getElementById("weddingMusic");
   const musicBtn = document.getElementById("musicPlayer");
   const musicIcon = document.getElementById("musicIcon");
+  let isPlaying = false;
 
-  // Inisialisasi SoundCloud Widget saat DOM Siap
-  document.addEventListener("DOMContentLoaded", function() {
-      const iframe = document.getElementById('sc-player');
-      widget = SC.Widget(iframe);
-      
-      // Deteksi ketika lagu dari widget beres di-buffer atau dimainkan
-      widget.bind(SC.Widget.Events.PLAY, function() {
-          isPlaying = true;
-          musicBtn.classList.add("playing");
-          musicIcon.className = "fas fa-pause";
-      });
-
-      widget.bind(SC.Widget.Events.PAUSE, function() {
-          isPlaying = false;
-          musicBtn.classList.remove("playing");
-          musicIcon.className = "fas fa-play";
-      });
-  });
-
-  // 1. Fungsi Buka Undangan & Jalankan SoundCloud API
+  // 1. Fungsi Pembukaan Sampul Undangan & Play Musik Otomatis
   function openInvitation() {
       const cover = document.getElementById("weddingCover");
       cover.classList.add("opened");
       
       musicBtn.classList.add("show");
-      
-      // Perintah mainkan lagu via SDK
-      if(widget) {
-          widget.play();
-      }
+      playMusic();
       
       setTimeout(() => {
           document.querySelector(".home-section").classList.add("animate-run");
@@ -950,14 +919,23 @@
       }, 400);
   }
 
-  // 2. Togle Play/Pause Audio SoundCloud via Tombol Vinyl
+  // 2. Sistem Kontrol Musik Audio HTML5 Asli (Play/Pause)
+  function playMusic() {
+      myAudio.play().then(() => {
+          isPlaying = true;
+          musicBtn.classList.add("playing");
+          musicIcon.className = "fas fa-pause";
+      }).catch(err => console.log("Audio play diproteksi kebijakan browser: " + err));
+  }
+
   function toggleMusic() {
-      if(widget) {
-          if (isPlaying) {
-              widget.pause();
-          } else {
-              widget.play();
-          }
+      if (isPlaying) {
+          myAudio.pause();
+          isPlaying = false;
+          musicBtn.classList.remove("playing");
+          musicIcon.className = "fas fa-play";
+      } else {
+          playMusic();
       }
   }
 
