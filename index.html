@@ -12,18 +12,18 @@
     /* Google Fonts Import */
     @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
-    /* Custom Fonts & Variable Modern Design */
+    /* Custom Variables - 2026 Luxury Palette */
     :root {
-        --primary: #c99a6b;         /* Modern luxury gold accent */
-        --primary-light: #f5ebe0;   /* Light tint background */
-        --dark: #1f2022;            /* Rich dark charcoal */
+        --primary: #c99a6b;         
+        --primary-light: #f5ebe0;   
+        --dark: #1f2022;            
         --text-muted: #7f8c8d;
-        --bg-main: #faf8f5;         /* Warm clean soft background */
+        --bg-main: #faf8f5;         
         --font-serif: 'Alex Brush', cursive;
         --font-sans: 'Plus Jakarta Sans', sans-serif;
         --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.02);
-        --shadow-md: 0 10px 30px rgba(19, 15, 12, 0.05);
-        --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        --shadow-md: 0 15px 40px rgba(19, 15, 12, 0.06);
+        --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * {
@@ -44,24 +44,111 @@
         line-height: 1.7;
     }
 
-    /* Animations */
+    /* ==================== SCREEN COVER / OPEN ENVELOPE ANIMATION ==================== */
+    .wedding-cover {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: linear-gradient(135deg, #1f2022 0%, #2d2e31 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        text-align: center;
+        transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        padding: 20px;
+    }
+
+    /* Dekorasi latar belakang amplop */
+    .wedding-cover::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0.03;
+        background-image: radial-gradient(var(--primary) 1px, transparent 0);
+        background-size: 24px 24px;
+        pointer-events: none;
+    }
+
+    .cover-content {
+        max-width: 500px;
+        z-index: 2;
+        animation: fadeInUp 1.2s ease;
+    }
+
+    .cover-content p {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: var(--primary);
+        margin-bottom: 20px;
+    }
+
+    .cover-content h1 {
+        font-family: var(--font-serif);
+        font-size: 72px;
+        font-weight: 400;
+        margin-bottom: 30px;
+        line-height: 1.2;
+    }
+
+    .btn-open {
+        padding: 14px 30px;
+        background-color: var(--primary);
+        color: #ffffff;
+        border: none;
+        border-radius: 50px;
+        font-family: var(--font-sans);
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 10px 25px rgba(201, 154, 107, 0.3);
+    }
+
+    .btn-open:hover {
+        background-color: #ffffff;
+        color: var(--dark);
+        transform: scale(1.05);
+    }
+
+    .btn-open i {
+        margin-right: 8px;
+    }
+
+    /* Class pemicu saat undangan dibuka */
+    .wedding-cover.opened {
+        transform: translateY(-100%);
+    }
+
+    /* ==================== SCROLL ANIMATION EFFECTS ==================== */
+    .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
     @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(40px); }
+        from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes float {
         0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-10px) rotate(2deg); }
+        50% { transform: translateY(-10px) rotate(3deg); }
     }
 
     @keyframes pulse-soft {
-        0%, 100% { transform: scale(1); opacity: 0.3; }
-        50% { transform: scale(1.05); opacity: 0.6; }
-    }
-
-    .animate-fade-in {
-        animation: fadeInUp 1.2s var(--transition) forwards;
+        0%, 100% { transform: scale(1); opacity: 0.2; }
+        50% { transform: scale(1.06); opacity: 0.5; }
     }
 
     .container {
@@ -79,7 +166,7 @@
 
     .section-title h2 {
         font-family: var(--font-serif);
-        font-size: 56px;
+        font-size: 58px;
         color: var(--primary);
         font-weight: 400;
         line-height: 1.2;
@@ -90,8 +177,8 @@
         display: block;
         color: var(--primary);
         font-size: 14px;
-        margin-top: 10px;
-        opacity: 0.5;
+        margin-top: 12px;
+        opacity: 0.4;
     }
 
     /* Header Navigation */
@@ -196,13 +283,19 @@
         background-size: cover;
         background-position: center;
         z-index: 1;
+        transform: scale(1.05);
+    }
+    
+    .home-section.animate-run .home-bg {
+        transition: transform 8s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: scale(1);
     }
 
     .home-section::before {
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.55));
+        background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
         z-index: 2;
     }
 
@@ -211,6 +304,14 @@
         z-index: 3;
         text-align: center;
         color: #ffffff;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .home-section.animate-run .home-content {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 1.5s ease 0.5s, transform 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
     }
 
     .home-content p {
@@ -245,6 +346,7 @@
     /* Couple Section */
     .couple-section {
         padding: 120px 0;
+        position: relative;
     }
 
     .couple-grid {
@@ -262,11 +364,13 @@
         text-align: center;
         box-shadow: var(--shadow-md);
         transition: var(--transition);
+        border: 1px solid rgba(201, 154, 107, 0.05);
     }
 
     .couple-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(195, 154, 107, 0.1);
+        transform: translateY(-12px);
+        box-shadow: 0 25px 50px rgba(195, 154, 107, 0.12);
+        border-color: rgba(201, 154, 107, 0.2);
     }
 
     .couple-card img {
@@ -276,6 +380,11 @@
         border-radius: 50%;
         margin-bottom: 30px;
         border: 6px solid var(--primary-light);
+        transition: transform 0.6s ease;
+    }
+
+    .couple-card:hover img {
+        transform: scale(1.04);
     }
 
     .couple-card h3 {
@@ -293,7 +402,7 @@
 
     .center-heart {
         color: var(--primary);
-        font-size: 24px;
+        font-size: 26px;
         animation: float 4s ease-in-out infinite;
         padding: 0 20px;
     }
@@ -327,6 +436,7 @@
     .story-section {
         padding: 120px 0;
         background-color: #fbf9f6;
+        position: relative;
     }
 
     .story-timeline {
@@ -379,7 +489,8 @@
     }
 
     .story-panel:hover {
-        transform: translateY(-4px);
+        transform: translateY(-5px);
+        box-shadow: 0 20px 45px rgba(0,0,0,0.08);
     }
 
     .story-item:nth-child(odd) { justify-content: flex-start; }
@@ -411,6 +522,7 @@
     .event-section {
         padding: 140px 0;
         background: linear-gradient(135deg, rgba(31,32,34,0.96) 0%, rgba(45,46,49,0.92) 100%);
+        position: relative;
     }
 
     .event-container {
@@ -430,6 +542,12 @@
         text-align: center;
         color: #ffffff;
         transition: var(--transition);
+    }
+
+    .event-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(201, 154, 107, 0.35);
+        background: rgba(255, 255, 255, 0.05);
     }
 
     .event-card h3 {
@@ -491,7 +609,7 @@
         transform: scale(1.08);
     }
 
-    /* RSVP Section Layout */
+    /* RSVP & Guestbook Section */
     .rsvp-section {
         padding: 120px 0;
         background-color: var(--primary-light);
@@ -585,7 +703,6 @@
         transition: var(--transition);
     }
 
-    /* Active dynamic classes for form labels */
     .input-custom:focus ~ .label-custom,
     .input-custom:valid ~ .label-custom,
     .input-custom.has-value ~ .label-custom {
@@ -617,7 +734,7 @@
         box-shadow: 0 15px 30px rgba(201, 154, 107, 0.25);
     }
 
-    /* Live Guestbook List */
+    /* Live Guestbook */
     .guestbook-container {
         background: #ffffff;
         border-radius: 32px;
@@ -639,9 +756,7 @@
         padding-right: 10px;
     }
 
-    .guestbook-list::-webkit-scrollbar {
-        width: 6px;
-    }
+    .guestbook-list::-webkit-scrollbar { width: 6px; }
     .guestbook-list::-webkit-scrollbar-thumb {
         background-color: var(--primary-light);
         border-radius: 10px;
@@ -653,7 +768,6 @@
         margin-bottom: 15px;
         background-color: #fafafa;
         border-radius: 16px;
-        animation: fadeInUp 0.5s ease forwards;
     }
 
     .guest-header {
@@ -663,12 +777,7 @@
         margin-bottom: 8px;
     }
 
-    .guest-name {
-        font-weight: 600;
-        font-size: 15px;
-        color: var(--dark);
-    }
-
+    .guest-name { font-weight: 600; font-size: 15px; color: var(--dark); }
     .guest-status {
         font-size: 11px;
         padding: 4px 12px;
@@ -677,21 +786,9 @@
         text-transform: uppercase;
     }
 
-    .status-hadir {
-        background-color: #e2f0d9;
-        color: #385723;
-    }
-
-    .status-absen {
-        background-color: #fce4d6;
-        color: #c65911;
-    }
-
-    .guest-msg {
-        font-size: 14px;
-        color: var(--text-muted);
-        font-style: italic;
-    }
+    .status-hadir { background-color: #e2f0d9; color: #385723; }
+    .status-absen { background-color: #fce4d6; color: #c65911; }
+    .guest-msg { font-size: 14px; color: var(--text-muted); font-style: italic; }
 
     /* Footer */
     .footer {
@@ -735,10 +832,8 @@
     }
 
     @media(max-width: 991px) {
-        .header .nav { display: none; } /* Sederhana tanpa burger di demo tunggal ini */
-        .couple-grid, .event-container, .rsvp-block-container {
-            flex-direction: column;
-        }
+        .header .nav { display: none; }
+        .couple-grid, .event-container, .rsvp-block-container { flex-direction: column; }
         .story-timeline::before, .story-dot { left: 20px; }
         .story-panel { width: calc(100% - 50px); margin-left: auto !important; }
         .rsvp-info-side, .rsvp-form-side { padding: 40px 30px; }
@@ -746,6 +841,17 @@
   </style>
 </head>
 <body>
+
+<!-- ==================== NEW FEATURE: PREMIUM OPEN ENVELOPE LAYER ==================== -->
+<div id="weddingCover" class="wedding-cover">
+  <div class="cover-content">
+    <p>The Wedding Invitation of</p>
+    <h1>Dimas & Rizki</h1>
+    <button class="btn-open" onclick="openInvitation()">
+      <i class="fas fa-envelope-open"></i> Buka Undangan
+    </button>
+  </div>
+</div>
 
 <header class="header">
   <div class="container">
@@ -771,7 +877,7 @@
 <section id="home" class="home-section">
   <div class="home-bg"></div>
   <div class="container">
-    <div class="home-content animate-fade-in">
+    <div class="home-content">
       <p>Save The Date</p>
       <h1>Dimas & Rizki</h1>
       <span>31 . 02 . 2027</span>
@@ -780,7 +886,7 @@
 </section>
 
 <!-- Couple Section -->
-<section id="couple" class="couple-section">
+<section id="couple" class="couple-section reveal">
   <div class="container">
     <div class="section-title">
       <h2>Happy Couple</h2>
@@ -814,7 +920,7 @@
 </section>
 
 <!-- Story Section -->
-<section id="story" class="story-section">
+<section id="story" class="story-section reveal">
   <div class="container">
     <div class="section-title">
       <h2>Our Love Story</h2>
@@ -841,7 +947,7 @@
 </section>
 
 <!-- Event Section -->
-<section id="event" class="event-section">
+<section id="event" class="event-section reveal">
   <div class="container">
     <div class="section-title">
       <h2 style="color: #fff;">Celebrate Our Love</h2>
@@ -864,7 +970,7 @@
 </section>
 
 <!-- Gallery Section -->
-<section id="gallery" class="gallery-section">
+<section id="gallery" class="gallery-section reveal">
   <div class="container">
     <div class="section-title">
       <h2>Our Memories</h2>
@@ -878,11 +984,9 @@
   </div>
 </section>
 
-<!-- RSVP Section & Live Guestbook -->
-<section id="rsvp" class="rsvp-section">
+<!-- RSVP Section -->
+<section id="rsvp" class="rsvp-section reveal">
   <div class="container">
-    
-    <!-- Form Block -->
     <div class="rsvp-block-container">
       <div class="rsvp-info-side">
         <h3>Simpan Tempatmu</h3>
@@ -935,10 +1039,9 @@
     <div class="guestbook-container">
       <h3 class="guestbook-title">Ucapan & Doa Restu</h3>
       <div id="guestbookList" class="guestbook-list">
-        <!-- Data ucapan diisi otomatis via Javascript -->
+        <!-- Javascript akan me-render list ke sini -->
       </div>
     </div>
-
   </div>
 </section>
 
@@ -956,8 +1059,21 @@
 
 <!-- JavaScript Logic Terintegrasi -->
 <script>
+  // 1. Trigger Pembukaan Sampul Undangan (Envelope Slide Up)
+  function openInvitation() {
+      const cover = document.getElementById("weddingCover");
+      cover.classList.add("opened");
+      
+      // Memicu trigger animasi internal untuk banner Home setelah dibuka
+      setTimeout(() => {
+          document.querySelector(".home-section").classList.add("animate-run");
+          // Jalankan pengecekan posisi scroll di awal untuk animasi fade in
+          revealElements();
+      }, 400);
+  }
+
   document.addEventListener("DOMContentLoaded", function() {
-      // 1. Script Efek Header blur & background putih saat scroll
+      // 2. Script Efek Header blur & background putih saat scroll
       window.addEventListener("scroll", function() {
           const header = document.querySelector(".header");
           if (window.scrollY > 50) {
@@ -967,7 +1083,23 @@
           }
       });
 
-      // 2. Logic Input label melayang agar terdeteksi jika terisi data
+      // 3. Script Pendeteksi Scroll Animasi (Reveal on Scroll)
+      window.addEventListener("scroll", revealElements);
+      
+      function revealElements() {
+          const reveals = document.querySelectorAll(".reveal");
+          for (let i = 0; i < reveals.length; i++) {
+              const windowHeight = window.innerHeight;
+              const elementTop = reveals[i].getBoundingClientRect().top;
+              const elementVisible = 120; // Sensivitas pemunculan (px)
+
+              if (elementTop < windowHeight - elementVisible) {
+                  reveals[i].classList.add("active");
+              }
+          }
+      }
+
+      // 4. Logic Input label melayang agar terdeteksi jika terisi data
       const inputs = document.querySelectorAll('.input-custom');
       inputs.forEach(input => {
           input.addEventListener('blur', function() {
@@ -979,11 +1111,10 @@
           });
       });
 
-      // 3. LOGIC LIVE GUESTBOOK (Buku Tamu Realtime Lokal Browser)
+      // 5. LOGIC LIVE GUESTBOOK (Buku Tamu Persisten Lokal Browser)
       const rsvpForm = document.getElementById("rsvpForm");
       const guestbookList = document.getElementById("guestbookList");
 
-      // Load data dari localStorage agar datanya persisten sewaktu direfresh
       let guestsData = JSON.parse(localStorage.getItem("wedding_guests")) || [
           { name: "Rezi Ichsan", status: "Hadir", message: "Selamat menempuh hidup baru Dimas & Rizki! Semoga samawa selalu dunia akhirat!" },
           { name: "Keluarga Jhon", status: "Absen", message: "Selamat ya! Maaf berhalangan hadir karena luar kota, doa terbaik untuk kalian berdua." }
@@ -991,10 +1122,9 @@
 
       function renderGuestbook() {
           guestbookList.innerHTML = "";
-          // Urutan data dibalik (.reverse) agar ucapan baru langsung nangkring paling atas
           [...guestsData].reverse().forEach(guest => {
               const card = document.createElement("div");
-              card.className = "guest-card";
+              card.className = "guest-card animate-fade-in";
               
               const statusClass = guest.status === "Hadir" ? "status-hadir" : "status-absen";
               
@@ -1026,13 +1156,13 @@
           guestsData.push(newGuest);
           localStorage.setItem("wedding_guests", JSON.stringify(guestsData));
 
-          // Reset formulir setelah submit berhasil
+          // Reset formulir setelah disubmit
           rsvpForm.reset();
           inputs.forEach(input => input.classList.remove('has-value'));
           renderGuestbook();
       });
 
-      // Proteksi XSS (mengamankan inputan user)
+      // Proteksi XSS 
       function escapeHtml(text) {
           return text
               .replace(/&/g, "&amp;")
@@ -1042,7 +1172,7 @@
               .replace(/'/g, "&#039;");
       }
 
-      // Render pertama kali saat load web
+      // Render awal list buku tamu
       renderGuestbook();
   });
 </script>
