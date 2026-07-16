@@ -4,93 +4,71 @@
   <meta charset="utf-8">
   <title>Dimas & Rizki Wedding</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Font Awesome Icons -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Main CSS -->
   <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 
 <header class="header">
   <div class="container">
-    <div class="row align-items-center justify-content-between">
+    <div class="row">
       <div class="logo">
         <a href="index.html">D & R</a>
       </div>
-      <div class="hamburger-btn">
-        <span></span>
-      </div>
       <nav class="nav">
         <ul>
-          <li><a data-scroll-nav='0' href="#home">Home</a></li>
-          <li><a data-scroll-nav='1' href="#couple">Couple</a></li>
-          <li><a data-scroll-nav='2' href="#story">Story</a></li>
-          <li><a data-scroll-nav='3' href="#event">Event</a></li>
-          <li><a data-scroll-nav='4' href="#gallery">Gallery</a></li>
-          <li><a data-scroll-nav='5' href="#rsvp">RSVP</a></li>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#couple">Couple</a></li>
+          <li><a href="#story">Story</a></li>
+          <li><a href="#event">Event</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#rsvp">RSVP</a></li>
         </ul>
       </nav>
     </div>
   </div>
 </header>
 
-<!-- Hero Home Slider -->
-<section id="home" data-scroll-index="0" class="home-section">
-  <div class="slide active" style="background-image: url('img/slides/slide-1.jpg');">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="home-content">
-          <p>The Wedding of</p>
-          <h1>Dimas & Rizki</h1>
-          <span>31 Februari 2027</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="slide" style="background-image: url('img/slides/slide-2.jpg');">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="home-content">
-          <p>The Wedding of</p>
-          <h1>Dimas & Rizki</h1>
-          <span>31 Februari 2027</span>
-        </div>
-      </div>
+<!-- Hero Section -->
+<section id="home" class="home-section">
+  <div class="slide active" style="background-image: url('img/slides/slide-1.jpg');"></div>
+  <div class="container">
+    <div class="home-content animate-fade-in">
+      <p>Save The Date</p>
+      <h1>Dimas & Rizki</h1>
+      <span>31 . 02 . 2027</span>
     </div>
   </div>
 </section>
 
 <!-- Couple Section -->
-<section id="couple" data-scroll-index="1" class="couple-section">
+<section id="couple" class="couple-section">
   <div class="container">
-    <div class="row">
-      <div class="section-title">
-        <h2>Happy Couple</h2>
-      </div>
+    <div class="section-title">
+      <h2>Happy Couple</h2>
     </div>
-    <div class="row">
-      <div class="couple">
-        <img src="img/groom.png" alt="Groom Image">
+    <div class="couple-grid">
+      <div class="couple-card">
+        <img src="img/groom.png" alt="Dimas">
         <h3>Dimas</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Putra dari Pasangan Bpk. Lorem & Ibu Ipsum. Sosok pekerja keras yang siap membangun pelabuhan cerita hidup baru.</p>
         <div class="social-icons">
-          <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" title="Twitter"><i class="fab fa-x-twitter"></i></a>
-          <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
-          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
         </div>
       </div>
-      <div class="couple">
+      
+      <div class="center-heart">
         <i class="fas fa-heart"></i>
-        <img src="img/bride (2).jpeg" alt="Bride Image">
+      </div>
+
+      <div class="couple-card">
+        <img src="img/bride (2).jpeg" alt="Rizki">
         <h3>Rizki</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Putri dari Pasangan Bpk. Dolor & Ibu Sit. Jiwa hangat penuh kebahagiaan yang melengkapi perjalanan akhir kapalnya.</p>
         <div class="social-icons">
-          <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" title="Twitter"><i class="fab fa-x-twitter"></i></a>
-          <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
-          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
         </div>
       </div>
     </div>
@@ -98,140 +76,142 @@
 </section>
 
 <!-- Story Section -->
-<section id="story" data-scroll-index="2" class="story-section">
+<section id="story" class="story-section">
   <div class="container">
-    <div class="row">
-      <div class="section-title">
-        <h2>Our Love Story</h2>
-      </div>
+    <div class="section-title">
+      <h2>Our Love Story</h2>
     </div>
-    <div class="row">
-      <div class="story-content">
-        
-        <div class="story-item">
-          <i class="fas fa-heart"></i>
-          <div class="story-text">
-            <h3>First Meet</h3>
-            <span class="date">31 Feb 2023</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-          <div class="story-img">
-            <img src="img/story/story-1.jpg" alt="Our first meet">
-          </div>
+    <div class="story-timeline">
+      
+      <div class="story-item">
+        <div class="story-dot"></div>
+        <div class="story-panel">
+          <span class="date">31 Feb 2023</span>
+          <h3>Pertemuan Pertama</h3>
+          <p>Awal mula tak sengaja di sebuah kedai kopi mini, mencairkan kecanggungan dan memunculkan kecocokan pandangan pertama.</p>
         </div>
-
-        <div class="story-item">
-          <i class="fas fa-heart"></i>
-          <div class="story-text">
-            <h3>First Date</h3>
-            <span class="date">12 Mar 2024</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-          <div class="story-img">
-            <img src="img/story/story-2.jpg" alt="Our first date">
-          </div>
-        </div>
-
       </div>
+
+      <div class="story-item">
+        <div class="story-dot"></div>
+        <div class="story-panel">
+          <span class="date">14 Nov 2025</span>
+          <h3>Komitmen Bersama</h3>
+          <p>Setelah melewati badai ujian waktu dan jarak, kami memutuskan untuk membawa jangkar hubungan ini ke arah yang pasti.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
 <!-- Event Section -->
-<section id="event" data-scroll-index="3" class="event-section">
+<section id="event" class="event-section">
   <div class="container">
-    <div class="row">
-      <div class="section-title">
-        <h2 style="color: #fff;">Celebrate Our Love</h2>
-      </div>
+    <div class="section-title">
+      <h2 style="color: #fff;">Celebrate Our Love</h2>
     </div>
-    <div class="row justify-content-center">
-      <div class="event-item">
-        <div class="event-item-inner">
-          <h3>Ceremony</h3>
-          <span class="date">35 Februari 2027</span>
-          <span class="time">09:00 - 11:00 AM</span>
-          <p><strong>Aya Coffee Bar</strong></p>
-          <p>Perumahan Bumi Citra Lestari, Jln. Mawar No.22, Cikarang, Indonesia</p>
-          <img src="img/icons/flower.svg" alt="decoration">
-        </div>
+    <div class="event-container">
+      <div class="event-card">
+        <h3>Akad Nikah</h3>
+        <span class="date">Minggu, 31 Februari 2027</span>
+        <span class="time">08:00 - 10:00 WIB</span>
+        <p><strong>Aya Coffee Bar Hall</strong><br>Perumahan Bumi Citra Lestari, Jl. Mawar No.22, Cikarang</p>
       </div>
-      <div class="event-item">
-        <div class="event-item-inner">
-          <h3>Reception</h3>
-          <span class="date">36 Maret 2027</span>
-          <span class="time">12:00 - 05:00 PM</span>
-          <p><strong>GamHouse</strong></p>
-          <p>Perumahan Bumi Citra Lestari, Jln. Mawar No.22, Cikarang, Indonesia</p>
-          <img src="img/icons/flower.svg" alt="decoration">
-        </div>
+      <div class="event-card">
+        <h3>Resepsi</h3>
+        <span class="date">Minggu, 31 Februari 2027</span>
+        <span class="time">11:00 - Selesai WIB</span>
+        <p><strong>GamHouse Ballroom</strong><br>Perumahan Bumi Citra Lestari, Jl. Mawar No.22, Cikarang</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Gallery Section -->
-<section id="gallery" data-scroll-index="4" class="gallery-section">
+<section id="gallery" class="gallery-section">
   <div class="container">
-    <div class="row">
-      <div class="section-title">
-        <h2>Our Memories</h2>
-      </div>
+    <div class="section-title">
+      <h2>Our Memories</h2>
     </div>
-    <div class="gallery-grid">
-      <div class="gallery-item-inner">
-        <img src="img/gallery/thumb/1.jpg" data-large="img/gallery/large/1.jpg" alt="Memory 1">
-      </div>
-      <div class="gallery-item-inner">
-        <img src="img/gallery/thumb/2.jpg" data-large="img/gallery/large/2.jpg" alt="Memory 2">
-      </div>
-      <div class="gallery-item-inner">
-        <img src="img/gallery/thumb/3.jpg" data-large="img/gallery/large/3.jpg" alt="Memory 3">
-      </div>
-      <div class="gallery-item-inner">
-        <img src="img/gallery/thumb/4.jpg" data-large="img/gallery/large/4.jpg" alt="Memory 4">
-      </div>
+    <div class="gallery-masonry">
+      <div class="gallery-wrapper"><img src="img/gallery/thumb/1.jpg" alt="Gallery"></div>
+      <div class="gallery-wrapper"><img src="img/gallery/thumb/2.jpg" alt="Gallery"></div>
+      <div class="gallery-wrapper"><img src="img/gallery/thumb/3.jpg" alt="Gallery"></div>
+      <div class="gallery-wrapper"><img src="img/gallery/thumb/4.jpg" alt="Gallery"></div>
     </div>
   </div>
 </section>
 
-<!-- RSVP Section -->
-<section id="rsvp" data-scroll-index="5" class="rsvp-section">
+<!-- ==================== SIGNIFIKAN: NEW RSVP SECTION LAYOUT ==================== -->
+<section id="rsvp" class="rsvp-section">
   <div class="container">
-    <div class="row">
-      <div class="section-title">
-        <h2>You Are Invited</h2>
-        <p style="color: var(--text-muted); margin-top: 10px;">Please kindly respond before 20 Februari 2027</p>
+    <div class="rsvp-block-container">
+      
+      <!-- Info Panel (Kiri) -->
+      <div class="rsvp-info-side">
+        <h3>Simpan Tempatmu</h3>
+        <p>Merupakan kebahagiaan tak ternilai jika Anda berkenan hadir menjadi bagian dari saksi ikrar suci janji pernikahan kami.</p>
+        
+        <div class="info-details">
+          <div class="info-details-item">
+            <i class="fas fa-calendar-alt"></i>
+            <div>
+              <small style="display:block; opacity:0.6;">Batas Respon</small>
+              <strong>20 Februari 2027</strong>
+            </div>
+          </div>
+          <div class="info-details-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <small style="display:block; opacity:0.6;">Lokasi Utama</small>
+              <strong>BCL, Cikarang, Indonesia</strong>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="rsvp-form">
-        <form class="form">
-          <div class="input-group">
-            <input type="text" placeholder="Nama Lengkap" class="input-control" required>
+
+      <!-- Form Panel (Kanan) -->
+      <div class="rsvp-form-side">
+        <form action="#" class="rsvp-fluid-form">
+          
+          <div class="form-group-custom">
+            <input type="text" class="input-custom" required onchange="this.setAttribute('value', this.value);" value="">
+            <label class="label-custom">Nama Lengkap Anda</label>
           </div>
-          <div class="input-group">
-            <input type="email" placeholder="Email" class="input-control" required>
+
+          <div class="form-group-custom">
+            <input type="email" class="input-custom" required onchange="this.setAttribute('value', this.value);" value="">
+            <label class="label-custom">Alamat Email Aktif</label>
           </div>
-          <div class="input-group">
-            <select class="input-control" required>
-              <option value="">Jumlah Undangan / Pax</option>
-              <option value="1">1 Orang</option>
-              <option value="2">2 Orang</option>
+
+          <div class="form-group-custom">
+            <select class="input-custom" required>
+              <option value="" disabled selected hidden></option>
+              <option value="1">1 Pax (Sendiri)</option>
+              <option value="2">2 Pax (Maksimal)</option>
             </select>
+            <label class="label-custom">Jumlah Kehadiran Undangan</label>
           </div>
-          <div class="input-group">
-            <select class="input-control" required>
-              <option value="1">Saya akan Hadir</option>
-              <option value="2">Maaf, Tidak Bisa Hadir</option>
+
+          <div class="form-group-custom">
+            <select class="input-custom" required>
+              <option value="" disabled selected hidden></option>
+              <option value="hadir">Saya bersedia untuk hadir</option>
+              <option value="absen">Maaf, halangan hadir</option>
             </select>
+            <label class="label-custom">Konfirmasi Kehadiran</label>
           </div>
-          <div class="input-group">
-            <textarea placeholder="Berikan ucapan hangat atau pesan Anda..." class="input-control"></textarea>
+
+          <div class="form-group-custom">
+            <textarea class="input-custom" style="height: 60px;" required onchange="this.setAttribute('value', this.value);" value=""></textarea>
+            <label class="label-custom">Berikan Ucapan / Pesan Hangat</label>
           </div>
-          <button type="submit" class="btn-1">Kirim Konfirmasi</button>
+
+          <button type="submit" class="btn-premium">Kirim Konfirmasi Kehadiran</button>
         </form>
       </div>
+
     </div>
   </div>
 </section>
@@ -239,21 +219,29 @@
 <!-- Footer -->
 <footer class="footer">
   <div class="container">
-    <div class="footer-content">
-      <div class="couple-name">
-        <img src="img/flower-circle.png" alt="Flower Frame">
-        <h2>Dimas<br><span>&</span><br>Rizki</h2>
-      </div>
-      <p>Terima kasih atas doa restu Anda semua.</p>
+    <div class="couple-name">
+      <img src="img/flower-circle.png" alt="Flower Layer">
+      <h2>Dimas<br>&<br>Rizki</h2>
     </div>
   </div>
 </footer>
 
 <p class="copyright-text">Copyright &copy; 2026 Rezi Ichsan — All Rights Reserved</p>
 
-<!-- Core Scripts Layout (Urutan diperbaiki agar tidak crash) -->
+<!-- JS Scripts Core Loading -->
 <script src='js/jquery.min.js' type='text/javascript'></script>
 <script src='js/scrollIt.min.js' type='text/javascript'></script>
 <script src="js/main.js"></script>
+
+<script>
+  // Simple Animation script trigger for header background blurring
+  $(window).on("scroll", function() {
+      if ($(window).scrollTop() > 50) {
+          $(".header").addClass("fixed");
+      } else {
+          $(".header").removeClass("fixed");
+      }
+  });
+</script>
 </body>
 </html>
