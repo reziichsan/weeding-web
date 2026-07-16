@@ -22,9 +22,9 @@
         --font-serif: 'Alex Brush', cursive;
         --font-sans: 'Plus Jakarta Sans', sans-serif;
         --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.02);
-        --shadow-md: 0 15px 40px rgba(19, 15, 12, 0.06);
-        --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        --petal-color: #ffb7c5; /* Pink Kelopak Bunga */
+        --shadow-md: 0 20px 50px rgba(19, 15, 12, 0.08);
+        --transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        --petal-color: #ffb7c5;
     }
 
     * {
@@ -43,10 +43,9 @@
         color: var(--dark);
         overflow-x: hidden;
         line-height: 1.7;
-        position: relative;
     }
 
-    /* ==================== SCREEN COVER / ENVELOPE OPENING ==================== */
+    /* ==================== SCREEN COVER: LUXURY WAX SEAL ENVELOPE ==================== */
     .wedding-cover {
         position: fixed;
         inset: 0;
@@ -58,76 +57,123 @@
         justify-content: center;
         color: #ffffff;
         text-align: center;
-        transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1), opacity 1.4s ease;
         padding: 20px;
     }
 
-    .wedding-cover::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        opacity: 0.03;
-        background-image: radial-gradient(var(--primary) 1px, transparent 0);
-        background-size: 24px 24px;
-        pointer-events: none;
+    .cover-card {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 50px 30px;
+        border-radius: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        max-width: 480px;
+        width: 100%;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        position: relative;
     }
 
-    .cover-content {
-        max-width: 500px;
-        z-index: 2;
-        animation: fadeInUp 1.2s ease;
-    }
-
-    .cover-content p {
-        font-size: 14px;
+    .cover-card p {
+        font-size: 13px;
         text-transform: uppercase;
-        letter-spacing: 4px;
+        letter-spacing: 5px;
         color: var(--primary);
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
-    .cover-content h1 {
+    .cover-card h1 {
         font-family: var(--font-serif);
-        font-size: 72px;
+        font-size: 64px;
         font-weight: 400;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
         line-height: 1.2;
     }
 
-    .btn-open {
-        padding: 14px 30px;
-        background-color: var(--primary);
-        color: #ffffff;
-        border: none;
-        border-radius: 50px;
-        font-family: var(--font-sans);
-        font-weight: 600;
-        font-size: 13px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
+    /* Wax Seal Button Effect */
+    .wax-seal-wrapper {
+        position: relative;
+        display: inline-block;
         cursor: pointer;
-        transition: var(--transition);
-        box-shadow: 0 10px 25px rgba(201, 154, 107, 0.3);
+        margin-top: 10px;
     }
 
-    .btn-open:hover {
-        background-color: #ffffff;
-        color: var(--dark);
-        transform: scale(1.05);
+    .wax-seal {
+        width: 80px;
+        height: 80px;
+        background: radial-gradient(#d4a373, #b98a5c);
+        border-radius: 50%;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3), inset 0 2px 5px rgba(255,255,255,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: #fff;
+        font-family: var(--font-serif);
+        font-weight: bold;
+        transition: var(--transition);
+        border: 3px double rgba(255,255,255,0.2);
+    }
+
+    .wax-seal-wrapper:hover .wax-seal {
+        transform: scale(1.08) rotate(10deg);
+        box-shadow: 0 12px 25px rgba(212, 163, 115, 0.4);
+    }
+
+    .seal-label {
+        display: block;
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 15px;
+        opacity: 0.7;
     }
 
     .wedding-cover.opened {
         transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
     }
 
-    /* ==================== ANIMASI BUNGA BERGUGURAN (PINK PETALS) ==================== */
+    /* ==================== FLOATING MUSIC PLAYER ==================== */
+    .music-player {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 999;
+        width: 50px;
+        height: 50px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow-md);
+        cursor: pointer;
+        color: var(--primary);
+        transition: var(--transition);
+        border: 1px solid var(--primary-light);
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .music-player.show {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .music-player.playing {
+        animation: pulse-soft 2s infinite linear;
+    }
+
+    .music-player i {
+        font-size: 18px;
+    }
+
+    /* ==================== FALLING PETALS ANIMATION ==================== */
     #petal-container {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 99;
+        inset: 0;
+        z-index: 98;
         pointer-events: none;
         overflow: hidden;
     }
@@ -136,88 +182,66 @@
         position: absolute;
         background-color: var(--petal-color);
         border-radius: 150px 10px 150px 10px;
-        opacity: 0.7;
-        transform-origin: left top;
-        animation: fade 10s infinite linear, drop 10s infinite linear;
-        pointer-events: none;
-    }
-
-    @keyframes fade {
-        0%, 90% { opacity: 0.7; }
-        100% { opacity: 0; }
+        opacity: 0.6;
+        animation: drop 8s infinite linear;
     }
 
     @keyframes drop {
-        0% { transform: translate(0px, -50px) rotate(0deg); }
-        100% { transform: translate(300px, 100vh) rotate(360deg); }
+        0% { transform: translate(0px, -50px) rotate(0deg) scale(0.6); opacity: 0.6; }
+        100% { transform: translate(250px, 100vh) rotate(360deg) scale(1); opacity: 0; }
     }
 
-    /* ==================== SCROLL REVEAL & CORE STYLES ==================== */
+    /* ==================== SCROLL REVEAL ANIMS ==================== */
     .reveal {
         opacity: 0;
-        transform: translateY(40px);
-        transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(50px) scale(0.98);
+        filter: blur(4px);
+        transition: opacity 1s ease, transform 1s var(--transition), filter 1s ease;
     }
 
     .reveal.active {
         opacity: 1;
-        transform: translateY(0);
-    }
-
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
+        transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 
     @keyframes float {
         0%, 100% { transform: translateY(0) scale(1); }
-        50% { transform: translateY(-8px) scale(1.1); }
+        50% { transform: translateY(-10px) scale(1.1); }
+    }
+
+    @keyframes pulse-soft {
+        0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(201,154,107,0.4); }
+        50% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(201,154,107,0); }
     }
 
     .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 30px;
-        position: relative;
     }
 
     /* Section Title */
     .section-title {
         text-align: center;
-        margin-bottom: 70px;
-        position: relative;
-        z-index: 2;
+        margin-bottom: 80px;
     }
 
     .section-title h2 {
         font-family: var(--font-serif);
-        font-size: 58px;
+        font-size: 64px;
         color: var(--primary);
         font-weight: 400;
         line-height: 1.2;
     }
 
-    /* ==================== DEKORASI BINGKAI FLORAL POJOK / BACKGROUND KOSONG ==================== */
-    .floral-bg-left, .floral-bg-right {
-        position: absolute;
-        width: 180px;
-        height: 180px;
-        opacity: 0.15;
-        pointer-events: none;
-        background-size: contain;
-        background-repeat: no-repeat;
-        z-index: 1;
-    }
-    .floral-bg-left {
-        left: 0;
-        top: 10%;
-        background-image: url('img/flower-circle.png'); /* Fallback menggunakan aset gambarmu */
-    }
-    .floral-bg-right {
-        right: 0;
-        bottom: 10%;
-        background-image: url('img/flower-circle.png');
-        transform: rotate(180deg);
+    .section-title::after {
+        content: '✿';
+        display: block;
+        color: var(--primary);
+        font-size: 14px;
+        margin-top: 12px;
+        opacity: 0.4;
     }
 
     /* Header Navigation */
@@ -256,9 +280,7 @@
     }
 
     .header.fixed .logo a { color: var(--dark); }
-    .header .nav { padding-right: 15px; }
-    .header .nav ul { list-style: none; display: flex; gap: 35px; }
-    
+    .header .nav ul { list-style: none; display: flex; gap: 35px; padding-right: 15px; }
     .header .nav ul li a {
         text-decoration: none;
         color: rgba(255, 255, 255, 0.85);
@@ -266,14 +288,13 @@
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 2px;
-        transition: var(--transition);
         position: relative;
         padding: 8px 0;
+        transition: var(--transition);
     }
-
     .header.fixed .nav ul li a { color: var(--dark); }
 
-    /* Hero Banner */
+    /* Hero Banner Fluid Parallax & Ken Burns */
     .home-section {
         position: relative;
         height: 100vh;
@@ -281,21 +302,21 @@
         align-items: center;
         justify-content: center;
         overflow: hidden;
-        background-color: #222;
+        background-color: #1f2022;
     }
 
     .home-bg {
         position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
+        inset: 0;
         background-image: url('img/slides/slide-1.jpg');
         background-size: cover;
         background-position: center;
         z-index: 1;
-        transform: scale(1.05);
+        transform: scale(1.15);
+        transition: transform 10s ease-out;
     }
     
     .home-section.animate-run .home-bg {
-        transition: transform 8s cubic-bezier(0.16, 1, 0.3, 1);
         transform: scale(1);
     }
 
@@ -303,7 +324,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+        background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
         z-index: 2;
     }
 
@@ -319,86 +340,71 @@
     .home-section.animate-run .home-content {
         opacity: 1;
         transform: translateY(0);
-        transition: opacity 1.5s ease 0.5s, transform 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+        transition: opacity 1.5s ease 0.6s, transform 1.5s var(--transition) 0.6s;
     }
 
     .home-content h1 {
         font-family: var(--font-serif);
-        font-size: 96px;
-        margin: 15px 0;
+        font-size: 104px;
+        margin: 10px 0;
     }
 
-    /* ==================== IMPROVEMENT: HAPPY COUPLE EXTRA FLACID / OPEN BOOK ==================== */
+    .home-content span {
+        font-size: 13px;
+        display: inline-block;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(8px);
+        border-radius: 50px;
+        padding: 10px 35px;
+        letter-spacing: 4px;
+    }
+
+    /* ==================== HAPPY COUPLE 3D OPEN-BOOK DESIGN ==================== */
     .couple-section {
-        padding: 120px 0;
+        padding: 140px 0;
         position: relative;
-    }
-
-    /* Hiasan Frame Bunga Kiri & Kanan Section */
-    .couple-floral-left {
-        position: absolute;
-        left: -40px;
-        top: 30%;
-        width: 150px;
-        opacity: 0.25;
-        pointer-events: none;
-    }
-
-    .couple-floral-right {
-        position: absolute;
-        right: -40px;
-        top: 30px;
-        width: 150px;
-        opacity: 0.25;
-        pointer-events: none;
-        transform: scaleX(-1);
     }
 
     .couple-grid {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 30px;
-        perspective: 1500px; /* Diperlukan untuk efek kedalaman 3D terbuka lebar */
+        gap: 50px;
+        perspective: 2000px;
     }
 
     .couple-card {
         flex: 1;
         background-color: #ffffff;
-        padding: 60px 40px;
-        border-radius: 24px;
+        padding: 60px 45px;
+        border-radius: 30px;
         text-align: center;
         box-shadow: var(--shadow-md);
-        border: 1px solid rgba(201, 154, 107, 0.1);
-        transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+        border: 1px solid rgba(201, 154, 107, 0.08);
+        transition: var(--transition);
         transform-style: preserve-3d;
-        position: relative;
     }
 
-    /* Efek Lebar Buka (Groom terbuka ke kiri, Bride terbuka ke kanan) */
-    .couple-grid .couple-card:first-child {
-        transform-origin: left center;
-    }
-    .couple-grid .couple-card:last-child {
-        transform-origin: right center;
-    }
+    /* Efek Gerakan Halaman Buku Terbuka Dinamis */
+    .couple-grid .couple-card:first-child { transform-origin: left center; }
+    .couple-grid .couple-card:last-child { transform-origin: right center; }
 
     .couple-grid:hover .couple-card:first-child {
-        transform: rotateY(15deg) scale(1.02);
-        box-shadow: -15px 25px 55px rgba(195, 154, 107, 0.15);
+        transform: rotateY(18deg) rotateX(2deg) translateY(-5px);
+        box-shadow: -20px 30px 60px rgba(195, 154, 107, 0.15);
     }
 
     .couple-grid:hover .couple-card:last-child {
-        transform: rotateY(-15deg) scale(1.02);
-        box-shadow: 15px 25px 55px rgba(195, 154, 107, 0.15);
+        transform: rotateY(-18deg) rotateX(2deg) translateY(-5px);
+        box-shadow: 20px 30px 60px rgba(195, 154, 107, 0.15);
     }
 
-    /* Menambahkan ornamen lingkaran daun tipis di belakang foto profil pasangan */
     .avatar-wrapper {
         position: relative;
         width: 210px;
         height: 210px;
-        margin: 0 auto 30px;
+        margin: 0 auto 35px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -407,10 +413,10 @@
     .avatar-wrapper::before {
         content: '';
         position: absolute;
-        inset: -5px;
+        inset: -8px;
         border: 1px dashed var(--primary);
         border-radius: 50%;
-        animation: pulse-soft 4s infinite linear;
+        animation: pulse-soft 3s infinite linear;
     }
 
     .couple-card img {
@@ -419,22 +425,25 @@
         object-fit: cover;
         border-radius: 50%;
         border: 4px solid #fff;
-        box-shadow: var(--shadow-sm);
-        z-index: 2;
     }
 
     .couple-card h3 {
         font-family: var(--font-serif);
-        font-size: 44px;
+        font-size: 46px;
         color: var(--dark);
         margin-bottom: 15px;
     }
 
+    .couple-card p {
+        font-size: 14px;
+        color: var(--text-muted);
+        font-weight: 300;
+    }
+
     .center-heart {
         color: var(--primary);
-        font-size: 32px;
+        font-size: 36px;
         animation: float 3s ease-in-out infinite;
-        z-index: 10;
     }
 
     /* Story Section */
@@ -458,47 +467,55 @@
     }
 
     .story-item { display: flex; margin-bottom: 80px; position: relative; width: 100%; }
+    
     .story-dot {
         position: absolute; left: 50%; top: 15px; transform: translateX(-50%);
-        width: 12px; height: 12px; background-color: var(--primary); border-radius: 50%;
+        width: 14px; height: 14px; background-color: var(--primary); border-radius: 50%;
         box-shadow: 0 0 0 6px #fbf9f6, 0 0 20px var(--primary); z-index: 10;
     }
 
     .story-panel {
-        width: 45%; background: #ffffff; padding: 35px; border-radius: 20px;
+        width: 45%; background: #ffffff; padding: 40px; border-radius: 24px;
         box-shadow: var(--shadow-md); transition: var(--transition);
     }
 
     .story-panel:hover { transform: translateY(-5px); }
     .story-item:nth-child(odd) { justify-content: flex-start; }
     .story-item:nth-child(even) { justify-content: flex-end; }
-    .story-panel h3 { font-size: 20px; margin-bottom: 8px; }
-    .story-panel .date { font-size: 13px; color: var(--primary); font-weight: 600; display: block; margin-bottom: 10px; }
+    
+    .story-panel h3 { font-size: 22px; margin-bottom: 8px; font-weight: 600; }
+    .story-panel .date { font-size: 13px; color: var(--primary); font-weight: 700; display: block; margin-bottom: 12px; }
 
     /* Event Section */
     .event-section {
         padding: 140px 0;
-        background: linear-gradient(135deg, rgba(31,32,34,0.96) 0%, rgba(45,46,49,0.92) 100%);
+        background: linear-gradient(135deg, rgba(31,32,34,0.97) 0%, rgba(45,46,49,0.94) 100%);
     }
 
     .event-container { display: flex; justify-content: center; gap: 40px; }
     
     .event-card {
-        flex: 0 1 450px; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08);
-        padding: 60px 40px; border-radius: 24px; text-align: center; color: #ffffff; transition: var(--transition);
+        flex: 0 1 480px; background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 65px 45px; border-radius: 28px; text-align: center; color: #ffffff; transition: var(--transition);
     }
 
-    .event-card h3 { font-family: var(--font-serif); font-size: 46px; color: var(--primary); margin-bottom: 25px; }
-    .event-card .time { color: var(--primary); margin-bottom: 25px; display: block; }
+    .event-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(201, 154, 107, 0.4);
+        background: rgba(255, 255, 255, 0.04);
+    }
+
+    .event-card h3 { font-family: var(--font-serif); font-size: 52px; color: var(--primary); margin-bottom: 25px; }
+    .event-card .time { color: var(--primary); margin-bottom: 25px; display: block; font-weight: 600; }
 
     /* Gallery Section */
     .gallery-section { padding: 120px 0; }
     .gallery-masonry { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-auto-rows: 240px; gap: 20px; }
-    .gallery-wrapper { overflow: hidden; border-radius: 20px; box-shadow: var(--shadow-md); }
+    .gallery-wrapper { overflow: hidden; border-radius: 24px; box-shadow: var(--shadow-md); cursor: pointer; }
     .gallery-wrapper:nth-child(2n) { grid-row: span 2; }
     .gallery-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
-    .gallery-wrapper:hover img { transform: scale(1.08); }
+    .gallery-wrapper:hover img { transform: scale(1.06); }
 
     /* RSVP & Guestbook Section */
     .rsvp-section {
@@ -508,7 +525,7 @@
 
     .rsvp-block-container {
         display: flex; background-color: #ffffff; border-radius: 32px;
-        overflow: hidden; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.05); margin-bottom: 50px;
+        overflow: hidden; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.05); margin-bottom: 60px;
     }
 
     .rsvp-info-side { flex: 1; background-color: var(--dark); color: #ffffff; padding: 60px; display: flex; flex-direction: column; justify-content: center; }
@@ -528,30 +545,33 @@
     }
 
     .btn-premium { width: 100%; padding: 16px 35px; background-color: var(--dark); color: #ffffff; border: none; border-radius: 14px; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: var(--transition); }
-    .btn-premium:hover { background-color: var(--primary); transform: translateY(-3px); }
+    .btn-premium:hover { background-color: var(--primary); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(201,154,107,0.2); }
 
-    /* Live Guestbook */
+    /* Live Guestbook UI */
     .guestbook-container { background: #ffffff; border-radius: 32px; padding: 50px 40px; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.03); }
     .guestbook-title { font-family: var(--font-serif); font-size: 42px; color: var(--dark); margin-bottom: 30px; text-align: center; }
-    .guestbook-list { max-height: 400px; overflow-y: auto; }
-    .guest-card { padding: 20px; border-bottom: 1px solid #f0f0f0; margin-bottom: 15px; background-color: #fafafa; border-radius: 16px; }
+    .guestbook-list { max-height: 400px; overflow-y: auto; padding-right: 5px; }
+    .guestbook-list::-webkit-scrollbar { width: 5px; }
+    .guestbook-list::-webkit-scrollbar-thumb { background-color: var(--primary-light); border-radius: 10px; }
+    
+    .guest-card { padding: 22px; border-bottom: 1px solid #f2f2f2; margin-bottom: 15px; background-color: #fafafa; border-radius: 20px; animation: fadeInUp 0.5s ease; }
     .guest-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .guest-name { font-weight: 600; }
-    .guest-status { font-size: 11px; padding: 4px 12px; border-radius: 30px; font-weight: 600; text-transform: uppercase; }
+    .guest-name { font-weight: 600; font-size: 15px; }
+    .guest-status { font-size: 11px; padding: 4px 14px; border-radius: 30px; font-weight: 600; text-transform: uppercase; }
     .status-hadir { background-color: #e2f0d9; color: #385723; }
     .status-absen { background-color: #fce4d6; color: #c65911; }
     .guest-msg { font-size: 14px; color: var(--text-muted); font-style: italic; }
 
     /* Footer */
-    .footer { padding: 100px 0; background-color: #ffffff; text-align: center; }
-    .footer .couple-name { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 240px; height: 240px; margin-bottom: 40px; }
+    .footer { padding: 120px 0; background-color: #ffffff; text-align: center; }
+    .footer .couple-name { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 240px; height: 240px; }
     .footer .couple-name img { position: absolute; inset: 0; width: 100%; height: 100%; animation: pulse-soft 4s linear infinite; }
-    .footer .couple-name h2 { font-family: var(--font-serif); font-size: 48px; color: var(--dark); z-index: 2; }
+    .footer .couple-name h2 { font-family: var(--font-serif); font-size: 52px; color: var(--dark); z-index: 2; }
     .copyright-text { text-align: center; font-size: 13px; color: var(--text-muted); padding: 30px 0; background-color: #ffffff; border-top: 1px solid #f0f0f0; }
 
     @media(max-width: 991px) {
         .header .nav { display: none; }
-        .couple-grid, .event-container, .rsvp-block-container { flex-direction: column; }
+        .couple-grid, .event-container, .rsvp-block-container { flex-direction: column; gap: 30px; }
         .couple-grid:hover .couple-card:first-child, .couple-grid:hover .couple-card:last-child { transform: none; }
         .story-timeline::before, .story-dot { left: 20px; }
         .story-panel { width: calc(100% - 50px); margin-left: auto !important; }
@@ -561,17 +581,26 @@
 </head>
 <body>
 
-<!-- Efek Animasi Wadah Kelopak Bunga Gugur -->
+<!-- Background Music Audio Tag (Ganti file audio.mp3 dengan link musik pernikahanmu) -->
+<audio id="weddingMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+
+<!-- Floating Audio Controller Button -->
+<div id="musicPlayer" class="music-player" onclick="toggleMusic()">
+  <i id="musicIcon" class="fas fa-play"></i>
+</div>
+
+<!-- Animasi Kelopak Bunga Gugur -->
 <div id="petal-container"></div>
 
-<!-- Cover Undangan -->
+<!-- Cover Undangan dengan Wax Seal Segel -->
 <div id="weddingCover" class="wedding-cover">
-  <div class="cover-content">
+  <div class="cover-card">
     <p>The Wedding Invitation of</p>
     <h1>Dimas & Rizki</h1>
-    <button class="btn-open" onclick="openInvitation()">
-      <i class="fas fa-envelope-open"></i> Buka Undangan
-    </button>
+    <div class="wax-seal-wrapper" onclick="openInvitation()">
+      <div class="wax-seal">D & R</div>
+      <span class="seal-label">Ketuk Untuk Membuka</span>
+    </div>
   </div>
 </div>
 
@@ -609,16 +638,12 @@
 
 <!-- Couple Section -->
 <section id="couple" class="couple-section reveal">
-  <!-- Dekorasi Aset Bunga Kiri dan Kanan Halaman -->
-  <img src="img/flower-circle.png" class="couple-floral-left" alt="floral decoration">
-  <img src="img/flower-circle.png" class="couple-floral-right" alt="floral decoration">
-  
   <div class="container">
     <div class="section-title">
       <h2>Happy Couple</h2>
     </div>
     <div class="couple-grid">
-      <!-- Card dengan efek Buka Buku -->
+      <!-- Pengantin Pria -->
       <div class="couple-card">
         <div class="avatar-wrapper">
           <img src="img/groom.png" alt="Dimas">
@@ -635,6 +660,7 @@
         <i class="fas fa-heart"></i>
       </div>
 
+      <!-- Pengantin Wanita -->
       <div class="couple-card">
         <div class="avatar-wrapper">
           <img src="img/bride (2).jpeg" alt="Rizki">
@@ -652,7 +678,6 @@
 
 <!-- Story Section -->
 <section id="story" class="story-section reveal">
-  <div class="floral-bg-left"></div>
   <div class="container">
     <div class="section-title">
       <h2>Our Love Story</h2>
@@ -716,9 +741,8 @@
   </div>
 </section>
 
-<!-- RSVP & Guestbook Section -->
+<!-- RSVP & Live Guestbook Section -->
 <section id="rsvp" class="rsvp-section reveal">
-  <div class="floral-bg-right"></div>
   <div class="container">
     <div class="rsvp-block-container">
       <div class="rsvp-info-side">
@@ -790,46 +814,85 @@
 
 <!-- JavaScript Logic Terintegrasi -->
 <script>
-  // 1. Fungsi Pembukaan Sampul Undangan & Aktivasi Efek Bunga Gugur
+  const myAudio = document.getElementById("weddingMusic");
+  const musicBtn = document.getElementById("musicPlayer");
+  const musicIcon = document.getElementById("musicIcon");
+
+  // 1. Fungsi Pembukaan Sampul Undangan & Play Musik Otomatis
   function openInvitation() {
       const cover = document.getElementById("weddingCover");
       cover.classList.add("opened");
       
+      // Munculkan tombol pemutar musik
+      musicBtn.classList.add("show");
+      playMusic();
+      
       setTimeout(() => {
           document.querySelector(".home-section").classList.add("animate-run");
           revealElements();
-          createPetals(); // Mengaktifkan efek guguran bunga secara berkelanjutan
+          createPetals();
       }, 400);
   }
 
-  // 2. Mesin Pembuat Kelopak Bunga Pink Gugur secara Acak (Real-time Generator)
+  // 2. Sistem Kontrol Musik (Play/Pause)
+  function playMusic() {
+      myAudio.play().then(() => {
+          musicBtn.classList.add("playing");
+          musicIcon.className = "fas fa-pause";
+      }).catch(err => console.log("Audio play diproteksi browser: " + err));
+  }
+
+  function toggleMusic() {
+      if (myAudio.paused) {
+          playMusic();
+      } else {
+          myAudio.pause();
+          musicBtn.classList.remove("playing");
+          musicIcon.className = "fas fa-play";
+      }
+  }
+
+  // 3. Efek Guguran Kelopak Bunga Pink (Petals Generator)
   function createPetals() {
       const container = document.getElementById('petal-container');
-      const petalCount = 25; // Jumlah kelopak bunga di layar sekaligus
+      const petalCount = 20;
 
       for (let i = 0; i < petalCount; i++) {
           const petal = document.createElement('div');
           petal.className = 'petal';
           
-          // Parameter acak agar gerakan natural dan dinamis
-          const size = Math.random() * 12 + 8; // Ukuran lebar kelopak
+          const size = Math.random() * 12 + 8;
           petal.style.width = size + 'px';
           petal.style.height = size + 'px';
           petal.style.left = Math.random() * window.innerWidth + 'px';
           petal.style.top = Math.random() * -50 - 20 + 'px';
           
-          const duration = Math.random() * 5 + 6; // Durasi jatuh melayang (6s-11s)
+          const duration = Math.random() * 4 + 6;
           petal.style.animationDuration = duration + 's';
-          
-          const delay = Math.random() * 8; // Variasi waktu tunggu muncul
-          petal.style.animationDelay = delay + 's';
+          petal.style.animationDelay = Math.random() * 6 + 's';
 
           container.appendChild(petal);
       }
   }
 
+  // 4. Detektor Elemen Gulir Animasi Masuk (Scroll Reveal)
+  window.addEventListener("scroll", revealElements);
+  
+  function revealElements() {
+      const reveals = document.querySelectorAll(".reveal");
+      for (let i = 0; i < reveals.length; i++) {
+          const windowHeight = window.innerHeight;
+          const elementTop = reveals[i].getBoundingClientRect().top;
+          const elementVisible = 100;
+
+          if (elementTop < windowHeight - elementVisible) {
+              reveals[i].classList.add("active");
+          }
+      }
+  }
+
   document.addEventListener("DOMContentLoaded", function() {
-      // 3. Efek Sticky Nav Blur saat layar di-scroll
+      // Sticky Nav Setup
       window.addEventListener("scroll", function() {
           const header = document.querySelector(".header");
           if (window.scrollY > 50) {
@@ -839,23 +902,7 @@
           }
       });
 
-      // 4. Detektor Elemen Gulir Animasi Masuk (Scroll Reveal Engine)
-      window.addEventListener("scroll", revealElements);
-      
-      function revealElements() {
-          const reveals = document.querySelectorAll(".reveal");
-          for (let i = 0; i < reveals.length; i++) {
-              const windowHeight = window.innerHeight;
-              const elementTop = reveals[i].getBoundingClientRect().top;
-              const elementVisible = 100;
-
-              if (elementTop < windowHeight - elementVisible) {
-                  reveals[i].classList.add("active");
-              }
-          }
-      }
-
-      // 5. Kontrol Label Input Interaktif (Floating Input Labels)
+      // Kontrol Input Line Labels Melayang
       const inputs = document.querySelectorAll('.input-custom');
       inputs.forEach(input => {
           input.addEventListener('blur', function() {
@@ -867,7 +914,7 @@
           });
       });
 
-      // 6. Sistem Penyimpanan Buku Tamu Lokal (Local Storage Engine)
+      // 5. LIVE GUESTBOOK CONTROLLER (Local Storage Stack)
       const rsvpForm = document.getElementById("rsvpForm");
       const guestbookList = document.getElementById("guestbookList");
 
@@ -881,7 +928,6 @@
           [...guestsData].reverse().forEach(guest => {
               const card = document.createElement("div");
               card.className = "guest-card";
-              
               const statusClass = guest.status === "Hadir" ? "status-hadir" : "status-absen";
               
               card.innerHTML = `
