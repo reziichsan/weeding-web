@@ -5,12 +5,14 @@
   <title>Dimas & Rizki Wedding</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- Font Awesome Icons & Fonts -->
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
   <style>
-    /* Custom Fonts & Variable 2026 Trend */
+    /* Google Fonts Import */
+    @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+    /* Custom Fonts & Variable Modern Design */
     :root {
         --primary: #c99a6b;         /* Modern luxury gold accent */
         --primary-light: #f5ebe0;   /* Light tint background */
@@ -124,10 +126,15 @@
         color: #ffffff;
         font-weight: 500;
         text-decoration: none;
+        padding-left: 15px;
     }
 
     .header.fixed .logo a {
         color: var(--dark);
+    }
+
+    .header .nav {
+        padding-right: 15px;
     }
 
     .header .nav ul {
@@ -185,7 +192,7 @@
     .home-bg {
         position: absolute;
         top: 0; left: 0; width: 100%; height: 100%;
-        background-image: url('img/slides/slide-1.jpg'); /* Sesuaikan path gambarmu */
+        background-image: url('img/slides/slide-1.jpg');
         background-size: cover;
         background-position: center;
         z-index: 1;
@@ -610,7 +617,7 @@
         box-shadow: 0 15px 30px rgba(201, 154, 107, 0.25);
     }
 
-    /* ==================== NEW LOGIC: LIVE GUESTBOOK LIST ==================== */
+    /* Live Guestbook List */
     .guestbook-container {
         background: #ffffff;
         border-radius: 32px;
@@ -632,7 +639,6 @@
         padding-right: 10px;
     }
 
-    /* Scrollbar Style */
     .guestbook-list::-webkit-scrollbar {
         width: 6px;
     }
@@ -729,6 +735,7 @@
     }
 
     @media(max-width: 991px) {
+        .header .nav { display: none; } /* Sederhana tanpa burger di demo tunggal ini */
         .couple-grid, .event-container, .rsvp-block-container {
             flex-direction: column;
         }
@@ -928,7 +935,7 @@
     <div class="guestbook-container">
       <h3 class="guestbook-title">Ucapan & Doa Restu</h3>
       <div id="guestbookList" class="guestbook-list">
-        <!-- Data Ucapan akan masuk secara dinamis ke sini via JS -->
+        <!-- Data ucapan diisi otomatis via Javascript -->
       </div>
     </div>
 
@@ -950,7 +957,7 @@
 <!-- JavaScript Logic Terintegrasi -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-      // 1. Script Efek Header blur saat scroll
+      // 1. Script Efek Header blur & background putih saat scroll
       window.addEventListener("scroll", function() {
           const header = document.querySelector(".header");
           if (window.scrollY > 50) {
@@ -972,20 +979,19 @@
           });
       });
 
-      // 3. LOGIC LIVE GUESTBOOK (Buku Tamu Realtime Lokal)
+      // 3. LOGIC LIVE GUESTBOOK (Buku Tamu Realtime Lokal Browser)
       const rsvpForm = document.getElementById("rsvpForm");
       const guestbookList = document.getElementById("guestbookList");
 
-      // Load data dari localStorage saat halaman pertama kali dibuka
+      // Load data dari localStorage agar datanya persisten sewaktu direfresh
       let guestsData = JSON.parse(localStorage.getItem("wedding_guests")) || [
-          // Data dummy bawaan awal biar tidak kosong saat dibuka pertama kali
           { name: "Rezi Ichsan", status: "Hadir", message: "Selamat menempuh hidup baru Dimas & Rizki! Semoga samawa selalu dunia akhirat!" },
           { name: "Keluarga Jhon", status: "Absen", message: "Selamat ya! Maaf berhalangan hadir karena luar kota, doa terbaik untuk kalian berdua." }
       ];
 
       function renderGuestbook() {
           guestbookList.innerHTML = "";
-          // Membalik urutan data (array reverse) agar data inputan terbaru muncul di paling atas
+          // Urutan data dibalik (.reverse) agar ucapan baru langsung nangkring paling atas
           [...guestsData].reverse().forEach(guest => {
               const card = document.createElement("div");
               card.className = "guest-card";
@@ -1003,7 +1009,7 @@
           });
       }
 
-      // Handler Submit Form
+      // Handler form submit
       rsvpForm.addEventListener("submit", function(e) {
           e.preventDefault();
 
@@ -1011,24 +1017,22 @@
           const statusInput = document.getElementById("rsvpStatus");
           const messageInput = document.getElementById("rsvpMessage");
 
-          // Bikin object data baru
           const newGuest = {
               name: nameInput.value,
               status: statusInput.value,
               message: messageInput.value
           };
 
-          // Masukkan ke array data & simpan ke localStorage
           guestsData.push(newGuest);
           localStorage.setItem("wedding_guests", JSON.stringify(guestsData));
 
-          // Reset data form & update tampilan list ucapan
+          // Reset formulir setelah submit berhasil
           rsvpForm.reset();
           inputs.forEach(input => input.classList.remove('has-value'));
           renderGuestbook();
       });
 
-      // Fungsi pengaman agar input HTML dari user aman dari XSS script injector
+      // Proteksi XSS (mengamankan inputan user)
       function escapeHtml(text) {
           return text
               .replace(/&/g, "&amp;")
@@ -1038,7 +1042,7 @@
               .replace(/'/g, "&#039;");
       }
 
-      // Jalankan render list di awal render halaman
+      // Render pertama kali saat load web
       renderGuestbook();
   });
 </script>
