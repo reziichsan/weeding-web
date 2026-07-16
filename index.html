@@ -12,7 +12,7 @@
     /* Google Fonts Import */
     @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
-    /* Custom Variables - 2026 Luxury Palette */
+    /* Custom Variables - Luxury Romantic Palette */
     :root {
         --primary: #c99a6b;         
         --primary-light: #f5ebe0;   
@@ -24,6 +24,7 @@
         --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.02);
         --shadow-md: 0 15px 40px rgba(19, 15, 12, 0.06);
         --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        --petal-color: #ffb7c5; /* Pink Kelopak Bunga */
     }
 
     * {
@@ -42,9 +43,10 @@
         color: var(--dark);
         overflow-x: hidden;
         line-height: 1.7;
+        position: relative;
     }
 
-    /* ==================== SCREEN COVER / OPEN ENVELOPE ANIMATION ==================== */
+    /* ==================== SCREEN COVER / ENVELOPE OPENING ==================== */
     .wedding-cover {
         position: fixed;
         inset: 0;
@@ -60,7 +62,6 @@
         padding: 20px;
     }
 
-    /* Dekorasi latar belakang amplop */
     .wedding-cover::after {
         content: '';
         position: absolute;
@@ -115,16 +116,43 @@
         transform: scale(1.05);
     }
 
-    .btn-open i {
-        margin-right: 8px;
-    }
-
-    /* Class pemicu saat undangan dibuka */
     .wedding-cover.opened {
         transform: translateY(-100%);
     }
 
-    /* ==================== SCROLL ANIMATION EFFECTS ==================== */
+    /* ==================== ANIMASI BUNGA BERGUGURAN (PINK PETALS) ==================== */
+    #petal-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .petal {
+        position: absolute;
+        background-color: var(--petal-color);
+        border-radius: 150px 10px 150px 10px;
+        opacity: 0.7;
+        transform-origin: left top;
+        animation: fade 10s infinite linear, drop 10s infinite linear;
+        pointer-events: none;
+    }
+
+    @keyframes fade {
+        0%, 90% { opacity: 0.7; }
+        100% { opacity: 0; }
+    }
+
+    @keyframes drop {
+        0% { transform: translate(0px, -50px) rotate(0deg); }
+        100% { transform: translate(300px, 100vh) rotate(360deg); }
+    }
+
+    /* ==================== SCROLL REVEAL & CORE STYLES ==================== */
     .reveal {
         opacity: 0;
         transform: translateY(40px);
@@ -142,19 +170,15 @@
     }
 
     @keyframes float {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-10px) rotate(3deg); }
-    }
-
-    @keyframes pulse-soft {
-        0%, 100% { transform: scale(1); opacity: 0.2; }
-        50% { transform: scale(1.06); opacity: 0.5; }
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-8px) scale(1.1); }
     }
 
     .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 30px;
+        position: relative;
     }
 
     /* Section Title */
@@ -162,6 +186,7 @@
         text-align: center;
         margin-bottom: 70px;
         position: relative;
+        z-index: 2;
     }
 
     .section-title h2 {
@@ -172,13 +197,27 @@
         line-height: 1.2;
     }
 
-    .section-title::after {
-        content: '✿';
-        display: block;
-        color: var(--primary);
-        font-size: 14px;
-        margin-top: 12px;
-        opacity: 0.4;
+    /* ==================== DEKORASI BINGKAI FLORAL POJOK / BACKGROUND KOSONG ==================== */
+    .floral-bg-left, .floral-bg-right {
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        opacity: 0.15;
+        pointer-events: none;
+        background-size: contain;
+        background-repeat: no-repeat;
+        z-index: 1;
+    }
+    .floral-bg-left {
+        left: 0;
+        top: 10%;
+        background-image: url('img/flower-circle.png'); /* Fallback menggunakan aset gambarmu */
+    }
+    .floral-bg-right {
+        right: 0;
+        bottom: 10%;
+        background-image: url('img/flower-circle.png');
+        transform: rotate(180deg);
     }
 
     /* Header Navigation */
@@ -216,20 +255,10 @@
         padding-left: 15px;
     }
 
-    .header.fixed .logo a {
-        color: var(--dark);
-    }
-
-    .header .nav {
-        padding-right: 15px;
-    }
-
-    .header .nav ul {
-        list-style: none;
-        display: flex;
-        gap: 35px;
-    }
-
+    .header.fixed .logo a { color: var(--dark); }
+    .header .nav { padding-right: 15px; }
+    .header .nav ul { list-style: none; display: flex; gap: 35px; }
+    
     .header .nav ul li a {
         text-decoration: none;
         color: rgba(255, 255, 255, 0.85);
@@ -242,28 +271,7 @@
         padding: 8px 0;
     }
 
-    .header.fixed .nav ul li a {
-        color: var(--dark);
-    }
-
-    .header .nav ul li a::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 1px;
-        background-color: var(--primary);
-        transition: var(--transition);
-    }
-
-    .header .nav ul li a:hover::after {
-        width: 100%;
-    }
-
-    .header .nav ul li a:hover {
-        color: var(--primary) !important;
-    }
+    .header.fixed .nav ul li a { color: var(--dark); }
 
     /* Hero Banner */
     .home-section {
@@ -314,46 +322,44 @@
         transition: opacity 1.5s ease 0.5s, transform 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
     }
 
-    .home-content p {
-        font-size: 16px;
-        text-transform: uppercase;
-        letter-spacing: 5px;
-        font-weight: 300;
-        margin-bottom: 15px;
-        opacity: 0.9;
-    }
-
     .home-content h1 {
         font-family: var(--font-serif);
         font-size: 96px;
-        font-weight: 400;
         margin: 15px 0;
-        text-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
 
-    .home-content span {
-        font-size: 14px;
-        display: inline-block;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        background-color: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(8px);
-        border-radius: 50px;
-        padding: 10px 35px;
-        letter-spacing: 3px;
-        margin-top: 25px;
-    }
-
-    /* Couple Section */
+    /* ==================== IMPROVEMENT: HAPPY COUPLE EXTRA FLACID / OPEN BOOK ==================== */
     .couple-section {
         padding: 120px 0;
         position: relative;
+    }
+
+    /* Hiasan Frame Bunga Kiri & Kanan Section */
+    .couple-floral-left {
+        position: absolute;
+        left: -40px;
+        top: 30%;
+        width: 150px;
+        opacity: 0.25;
+        pointer-events: none;
+    }
+
+    .couple-floral-right {
+        position: absolute;
+        right: -40px;
+        top: 30px;
+        width: 150px;
+        opacity: 0.25;
+        pointer-events: none;
+        transform: scaleX(-1);
     }
 
     .couple-grid {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 40px;
+        gap: 30px;
+        perspective: 1500px; /* Diperlukan untuk efek kedalaman 3D terbuka lebar */
     }
 
     .couple-card {
@@ -363,14 +369,48 @@
         border-radius: 24px;
         text-align: center;
         box-shadow: var(--shadow-md);
-        transition: var(--transition);
-        border: 1px solid rgba(201, 154, 107, 0.05);
+        border: 1px solid rgba(201, 154, 107, 0.1);
+        transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+        transform-style: preserve-3d;
+        position: relative;
     }
 
-    .couple-card:hover {
-        transform: translateY(-12px);
-        box-shadow: 0 25px 50px rgba(195, 154, 107, 0.12);
-        border-color: rgba(201, 154, 107, 0.2);
+    /* Efek Lebar Buka (Groom terbuka ke kiri, Bride terbuka ke kanan) */
+    .couple-grid .couple-card:first-child {
+        transform-origin: left center;
+    }
+    .couple-grid .couple-card:last-child {
+        transform-origin: right center;
+    }
+
+    .couple-grid:hover .couple-card:first-child {
+        transform: rotateY(15deg) scale(1.02);
+        box-shadow: -15px 25px 55px rgba(195, 154, 107, 0.15);
+    }
+
+    .couple-grid:hover .couple-card:last-child {
+        transform: rotateY(-15deg) scale(1.02);
+        box-shadow: 15px 25px 55px rgba(195, 154, 107, 0.15);
+    }
+
+    /* Menambahkan ornamen lingkaran daun tipis di belakang foto profil pasangan */
+    .avatar-wrapper {
+        position: relative;
+        width: 210px;
+        height: 210px;
+        margin: 0 auto 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .avatar-wrapper::before {
+        content: '';
+        position: absolute;
+        inset: -5px;
+        border: 1px dashed var(--primary);
+        border-radius: 50%;
+        animation: pulse-soft 4s infinite linear;
     }
 
     .couple-card img {
@@ -378,65 +418,29 @@
         height: 200px;
         object-fit: cover;
         border-radius: 50%;
-        margin-bottom: 30px;
-        border: 6px solid var(--primary-light);
-        transition: transform 0.6s ease;
-    }
-
-    .couple-card:hover img {
-        transform: scale(1.04);
+        border: 4px solid #fff;
+        box-shadow: var(--shadow-sm);
+        z-index: 2;
     }
 
     .couple-card h3 {
         font-family: var(--font-serif);
-        font-size: 42px;
+        font-size: 44px;
         color: var(--dark);
         margin-bottom: 15px;
     }
 
-    .couple-card p {
-        font-size: 14px;
-        color: var(--text-muted);
-        font-weight: 300;
-    }
-
     .center-heart {
         color: var(--primary);
-        font-size: 26px;
-        animation: float 4s ease-in-out infinite;
-        padding: 0 20px;
-    }
-
-    .social-icons {
-        margin-top: 25px;
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-    }
-
-    .social-icons a i {
-        width: 38px;
-        height: 38px;
-        line-height: 38px;
-        border-radius: 50%;
-        background-color: var(--primary-light);
-        color: var(--primary);
-        font-size: 14px;
-        text-align: center;
-        transition: var(--transition);
-    }
-
-    .social-icons a:hover i {
-        background-color: var(--primary);
-        color: #ffffff;
-        transform: translateY(-3px);
+        font-size: 32px;
+        animation: float 3s ease-in-out infinite;
+        z-index: 10;
     }
 
     /* Story Section */
     .story-section {
         padding: 120px 0;
         background-color: #fbf9f6;
-        position: relative;
     }
 
     .story-timeline {
@@ -448,166 +452,53 @@
     .story-timeline::before {
         content: '';
         position: absolute;
-        left: 50%;
-        width: 1px;
-        height: 100%;
-        top: 0;
+        left: 50%; width: 1px; height: 100%; top: 0;
         background: linear-gradient(to bottom, transparent, var(--primary) 15%, var(--primary) 85%, transparent);
         transform: translateX(-50%);
     }
 
-    .story-item {
-        display: flex;
-        margin-bottom: 80px;
-        position: relative;
-        width: 100%;
-    }
-
-    .story-item:last-child { margin-bottom: 0; }
-
+    .story-item { display: flex; margin-bottom: 80px; position: relative; width: 100%; }
     .story-dot {
-        position: absolute;
-        left: 50%;
-        top: 15px;
-        transform: translateX(-50%);
-        width: 12px;
-        height: 12px;
-        background-color: var(--primary);
-        border-radius: 50%;
-        box-shadow: 0 0 0 6px #fbf9f6, 0 0 20px var(--primary);
-        z-index: 10;
+        position: absolute; left: 50%; top: 15px; transform: translateX(-50%);
+        width: 12px; height: 12px; background-color: var(--primary); border-radius: 50%;
+        box-shadow: 0 0 0 6px #fbf9f6, 0 0 20px var(--primary); z-index: 10;
     }
 
     .story-panel {
-        width: 45%;
-        background: #ffffff;
-        padding: 35px;
-        border-radius: 20px;
-        box-shadow: var(--shadow-md);
-        position: relative;
-        transition: var(--transition);
+        width: 45%; background: #ffffff; padding: 35px; border-radius: 20px;
+        box-shadow: var(--shadow-md); transition: var(--transition);
     }
 
-    .story-panel:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 45px rgba(0,0,0,0.08);
-    }
-
+    .story-panel:hover { transform: translateY(-5px); }
     .story-item:nth-child(odd) { justify-content: flex-start; }
     .story-item:nth-child(even) { justify-content: flex-end; }
-
-    .story-panel h3 {
-        font-size: 20px;
-        font-weight: 600;
-        color: var(--dark);
-        margin-bottom: 8px;
-    }
-
-    .story-panel .date {
-        font-size: 13px;
-        color: var(--primary);
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 15px;
-        display: block;
-    }
-
-    .story-panel p {
-        font-size: 14px;
-        color: var(--text-muted);
-    }
+    .story-panel h3 { font-size: 20px; margin-bottom: 8px; }
+    .story-panel .date { font-size: 13px; color: var(--primary); font-weight: 600; display: block; margin-bottom: 10px; }
 
     /* Event Section */
     .event-section {
         padding: 140px 0;
         background: linear-gradient(135deg, rgba(31,32,34,0.96) 0%, rgba(45,46,49,0.92) 100%);
-        position: relative;
     }
 
-    .event-container {
-        display: flex;
-        justify-content: center;
-        gap: 40px;
-    }
-
+    .event-container { display: flex; justify-content: center; gap: 40px; }
+    
     .event-card {
-        flex: 0 1 450px;
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        padding: 60px 40px;
-        border-radius: 24px;
-        text-align: center;
-        color: #ffffff;
-        transition: var(--transition);
+        flex: 0 1 450px; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 60px 40px; border-radius: 24px; text-align: center; color: #ffffff; transition: var(--transition);
     }
 
-    .event-card:hover {
-        transform: translateY(-8px);
-        border-color: rgba(201, 154, 107, 0.35);
-        background: rgba(255, 255, 255, 0.05);
-    }
-
-    .event-card h3 {
-        font-family: var(--font-serif);
-        font-size: 46px;
-        color: var(--primary);
-        font-weight: 400;
-        margin-bottom: 25px;
-    }
-
-    .event-card .date {
-        font-size: 18px;
-        font-weight: 600;
-        letter-spacing: 1px;
-    }
-
-    .event-card .time {
-        font-size: 14px;
-        color: var(--primary);
-        margin-bottom: 30px;
-        display: block;
-    }
-
-    .event-card p {
-        font-size: 14px;
-        opacity: 0.75;
-        font-weight: 300;
-    }
+    .event-card h3 { font-family: var(--font-serif); font-size: 46px; color: var(--primary); margin-bottom: 25px; }
+    .event-card .time { color: var(--primary); margin-bottom: 25px; display: block; }
 
     /* Gallery Section */
-    .gallery-section {
-        padding: 120px 0;
-    }
-
-    .gallery-masonry {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        grid-auto-rows: 240px;
-        gap: 20px;
-    }
-
-    .gallery-wrapper {
-        overflow: hidden;
-        border-radius: 20px;
-        position: relative;
-        box-shadow: var(--shadow-md);
-    }
-
+    .gallery-section { padding: 120px 0; }
+    .gallery-masonry { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-auto-rows: 240px; gap: 20px; }
+    .gallery-wrapper { overflow: hidden; border-radius: 20px; box-shadow: var(--shadow-md); }
     .gallery-wrapper:nth-child(2n) { grid-row: span 2; }
-
-    .gallery-wrapper img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .gallery-wrapper:hover img {
-        transform: scale(1.08);
-    }
+    .gallery-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+    .gallery-wrapper:hover img { transform: scale(1.08); }
 
     /* RSVP & Guestbook Section */
     .rsvp-section {
@@ -616,224 +507,52 @@
     }
 
     .rsvp-block-container {
-        display: flex;
-        background-color: #ffffff;
-        border-radius: 32px;
-        overflow: hidden;
-        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.05);
-        margin-bottom: 50px;
+        display: flex; background-color: #ffffff; border-radius: 32px;
+        overflow: hidden; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.05); margin-bottom: 50px;
     }
 
-    .rsvp-info-side {
-        flex: 1;
-        background-color: var(--dark);
-        color: #ffffff;
-        padding: 60px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        position: relative;
-    }
-
-    .rsvp-info-side h3 {
-        font-family: var(--font-serif);
-        font-size: 52px;
-        color: var(--primary);
-        margin-bottom: 20px;
-    }
-
-    .rsvp-info-side p {
-        font-size: 15px;
-        opacity: 0.7;
-        margin-bottom: 40px;
-        font-weight: 300;
-    }
-
-    .info-details-item {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        margin-bottom: 25px;
-    }
-
-    .info-details-item i {
-        width: 46px;
-        height: 46px;
-        line-height: 46px;
-        text-align: center;
-        background-color: rgba(255, 255, 255, 0.05);
-        border-radius: 14px;
-        color: var(--primary);
-    }
-
-    .rsvp-form-side {
-        flex: 1.3;
-        padding: 60px;
-    }
-
-    .form-group-custom {
-        position: relative;
-        margin-bottom: 35px;
-    }
-
-    .input-custom {
-        width: 100%;
-        padding: 12px 0;
-        background: transparent;
-        border: none;
-        border-bottom: 1.5px solid #e0e0e0;
-        font-family: var(--font-sans);
-        font-size: 15px;
-        color: var(--dark);
-        transition: var(--transition);
-    }
-
-    .input-custom:focus {
-        outline: none;
-        border-bottom-color: var(--primary);
-    }
-
-    .label-custom {
-        position: absolute;
-        left: 0;
-        top: 12px;
-        font-size: 14px;
-        color: var(--text-muted);
-        pointer-events: none;
-        transition: var(--transition);
-    }
-
+    .rsvp-info-side { flex: 1; background-color: var(--dark); color: #ffffff; padding: 60px; display: flex; flex-direction: column; justify-content: center; }
+    .rsvp-info-side h3 { font-family: var(--font-serif); font-size: 52px; color: var(--primary); margin-bottom: 20px; }
+    .rsvp-form-side { flex: 1.3; padding: 60px; }
+    
+    .form-group-custom { position: relative; margin-bottom: 35px; }
+    .input-custom { width: 100%; padding: 12px 0; background: transparent; border: none; border-bottom: 1.5px solid #e0e0e0; font-size: 15px; color: var(--dark); transition: var(--transition); }
+    .input-custom:focus { outline: none; border-bottom-color: var(--primary); }
+    
+    .label-custom { position: absolute; left: 0; top: 12px; font-size: 14px; color: var(--text-muted); pointer-events: none; transition: var(--transition); }
+    
     .input-custom:focus ~ .label-custom,
     .input-custom:valid ~ .label-custom,
     .input-custom.has-value ~ .label-custom {
-        top: -15px;
-        font-size: 12px;
-        color: var(--primary);
-        font-weight: 600;
+        top: -15px; font-size: 12px; color: var(--primary); font-weight: 600;
     }
 
-    .btn-premium {
-        width: 100%;
-        padding: 16px 35px;
-        background-color: var(--dark);
-        color: #ffffff;
-        border: none;
-        border-radius: 14px;
-        font-family: var(--font-sans);
-        font-weight: 600;
-        font-size: 14px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-
-    .btn-premium:hover {
-        background-color: var(--primary);
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(201, 154, 107, 0.25);
-    }
+    .btn-premium { width: 100%; padding: 16px 35px; background-color: var(--dark); color: #ffffff; border: none; border-radius: 14px; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: var(--transition); }
+    .btn-premium:hover { background-color: var(--primary); transform: translateY(-3px); }
 
     /* Live Guestbook */
-    .guestbook-container {
-        background: #ffffff;
-        border-radius: 32px;
-        padding: 50px 40px;
-        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.03);
-    }
-
-    .guestbook-title {
-        font-family: var(--font-serif);
-        font-size: 42px;
-        color: var(--dark);
-        margin-bottom: 30px;
-        text-align: center;
-    }
-
-    .guestbook-list {
-        max-height: 400px;
-        overflow-y: auto;
-        padding-right: 10px;
-    }
-
-    .guestbook-list::-webkit-scrollbar { width: 6px; }
-    .guestbook-list::-webkit-scrollbar-thumb {
-        background-color: var(--primary-light);
-        border-radius: 10px;
-    }
-
-    .guest-card {
-        padding: 20px;
-        border-bottom: 1px solid #f0f0f0;
-        margin-bottom: 15px;
-        background-color: #fafafa;
-        border-radius: 16px;
-    }
-
-    .guest-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 8px;
-    }
-
-    .guest-name { font-weight: 600; font-size: 15px; color: var(--dark); }
-    .guest-status {
-        font-size: 11px;
-        padding: 4px 12px;
-        border-radius: 30px;
-        font-weight: 600;
-        text-transform: uppercase;
-    }
-
+    .guestbook-container { background: #ffffff; border-radius: 32px; padding: 50px 40px; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.03); }
+    .guestbook-title { font-family: var(--font-serif); font-size: 42px; color: var(--dark); margin-bottom: 30px; text-align: center; }
+    .guestbook-list { max-height: 400px; overflow-y: auto; }
+    .guest-card { padding: 20px; border-bottom: 1px solid #f0f0f0; margin-bottom: 15px; background-color: #fafafa; border-radius: 16px; }
+    .guest-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .guest-name { font-weight: 600; }
+    .guest-status { font-size: 11px; padding: 4px 12px; border-radius: 30px; font-weight: 600; text-transform: uppercase; }
     .status-hadir { background-color: #e2f0d9; color: #385723; }
     .status-absen { background-color: #fce4d6; color: #c65911; }
     .guest-msg { font-size: 14px; color: var(--text-muted); font-style: italic; }
 
     /* Footer */
-    .footer {
-        padding: 100px 0;
-        background-color: #ffffff;
-        text-align: center;
-    }
-
-    .footer .couple-name {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 240px;
-        height: 240px;
-        margin-bottom: 40px;
-    }
-
-    .footer .couple-name img {
-        position: absolute;
-        inset: 0;
-        width: 100%; height: 100%;
-        animation: pulse-soft 4s linear infinite;
-    }
-
-    .footer .couple-name h2 {
-        font-family: var(--font-serif);
-        font-size: 48px;
-        color: var(--dark);
-        font-weight: 400;
-        z-index: 2;
-    }
-
-    .copyright-text {
-        text-align: center;
-        font-size: 13px;
-        color: var(--text-muted);
-        padding: 30px 0;
-        background-color: #ffffff;
-        border-top: 1px solid #f0f0f0;
-    }
+    .footer { padding: 100px 0; background-color: #ffffff; text-align: center; }
+    .footer .couple-name { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 240px; height: 240px; margin-bottom: 40px; }
+    .footer .couple-name img { position: absolute; inset: 0; width: 100%; height: 100%; animation: pulse-soft 4s linear infinite; }
+    .footer .couple-name h2 { font-family: var(--font-serif); font-size: 48px; color: var(--dark); z-index: 2; }
+    .copyright-text { text-align: center; font-size: 13px; color: var(--text-muted); padding: 30px 0; background-color: #ffffff; border-top: 1px solid #f0f0f0; }
 
     @media(max-width: 991px) {
         .header .nav { display: none; }
         .couple-grid, .event-container, .rsvp-block-container { flex-direction: column; }
+        .couple-grid:hover .couple-card:first-child, .couple-grid:hover .couple-card:last-child { transform: none; }
         .story-timeline::before, .story-dot { left: 20px; }
         .story-panel { width: calc(100% - 50px); margin-left: auto !important; }
         .rsvp-info-side, .rsvp-form-side { padding: 40px 30px; }
@@ -842,7 +561,10 @@
 </head>
 <body>
 
-<!-- ==================== NEW FEATURE: PREMIUM OPEN ENVELOPE LAYER ==================== -->
+<!-- Efek Animasi Wadah Kelopak Bunga Gugur -->
+<div id="petal-container"></div>
+
+<!-- Cover Undangan -->
 <div id="weddingCover" class="wedding-cover">
   <div class="cover-content">
     <p>The Wedding Invitation of</p>
@@ -873,7 +595,7 @@
   </div>
 </header>
 
-<!-- Hero Home -->
+<!-- Hero Home Banner -->
 <section id="home" class="home-section">
   <div class="home-bg"></div>
   <div class="container">
@@ -887,15 +609,22 @@
 
 <!-- Couple Section -->
 <section id="couple" class="couple-section reveal">
+  <!-- Dekorasi Aset Bunga Kiri dan Kanan Halaman -->
+  <img src="img/flower-circle.png" class="couple-floral-left" alt="floral decoration">
+  <img src="img/flower-circle.png" class="couple-floral-right" alt="floral decoration">
+  
   <div class="container">
     <div class="section-title">
       <h2>Happy Couple</h2>
     </div>
     <div class="couple-grid">
+      <!-- Card dengan efek Buka Buku -->
       <div class="couple-card">
-        <img src="img/groom.png" alt="Dimas">
+        <div class="avatar-wrapper">
+          <img src="img/groom.png" alt="Dimas">
+        </div>
         <h3>Dimas</h3>
-        <p>Putra dari Keluarga Bpk. Lorem & Ibu Ipsum. Menatap masa depan bersama dengan penuh ketetapan hati.</p>
+        <p>Putra tercinta dari Keluarga Bpk. Lorem & Ibu Ipsum. Langkah tegap siap menempuh takdir baru.</p>
         <div class="social-icons">
           <a href="#"><i class="fab fa-instagram"></i></a>
           <a href="#"><i class="fab fa-tiktok"></i></a>
@@ -907,9 +636,11 @@
       </div>
 
       <div class="couple-card">
-        <img src="img/bride (2).jpeg" alt="Rizki">
+        <div class="avatar-wrapper">
+          <img src="img/bride (2).jpeg" alt="Rizki">
+        </div>
         <h3>Rizki</h3>
-        <p>Putri dari Keluarga Bpk. Dolor & Ibu Sit. Bersiap melangkah bersama melabuhkan kebahagiaan sejati.</p>
+        <p>Putri tercinta dari Keluarga Bpk. Dolor & Ibu Sit. Senyum ketulusan yang menanti bahtera janji suci.</p>
         <div class="social-icons">
           <a href="#"><i class="fab fa-instagram"></i></a>
           <a href="#"><i class="fab fa-tiktok"></i></a>
@@ -921,6 +652,7 @@
 
 <!-- Story Section -->
 <section id="story" class="story-section reveal">
+  <div class="floral-bg-left"></div>
   <div class="container">
     <div class="section-title">
       <h2>Our Love Story</h2>
@@ -984,8 +716,9 @@
   </div>
 </section>
 
-<!-- RSVP Section -->
+<!-- RSVP & Guestbook Section -->
 <section id="rsvp" class="rsvp-section reveal">
+  <div class="floral-bg-right"></div>
   <div class="container">
     <div class="rsvp-block-container">
       <div class="rsvp-info-side">
@@ -1038,9 +771,7 @@
     <!-- Live Guestbook List Block -->
     <div class="guestbook-container">
       <h3 class="guestbook-title">Ucapan & Doa Restu</h3>
-      <div id="guestbookList" class="guestbook-list">
-        <!-- Javascript akan me-render list ke sini -->
-      </div>
+      <div id="guestbookList" class="guestbook-list"></div>
     </div>
   </div>
 </section>
@@ -1059,21 +790,46 @@
 
 <!-- JavaScript Logic Terintegrasi -->
 <script>
-  // 1. Trigger Pembukaan Sampul Undangan (Envelope Slide Up)
+  // 1. Fungsi Pembukaan Sampul Undangan & Aktivasi Efek Bunga Gugur
   function openInvitation() {
       const cover = document.getElementById("weddingCover");
       cover.classList.add("opened");
       
-      // Memicu trigger animasi internal untuk banner Home setelah dibuka
       setTimeout(() => {
           document.querySelector(".home-section").classList.add("animate-run");
-          // Jalankan pengecekan posisi scroll di awal untuk animasi fade in
           revealElements();
+          createPetals(); // Mengaktifkan efek guguran bunga secara berkelanjutan
       }, 400);
   }
 
+  // 2. Mesin Pembuat Kelopak Bunga Pink Gugur secara Acak (Real-time Generator)
+  function createPetals() {
+      const container = document.getElementById('petal-container');
+      const petalCount = 25; // Jumlah kelopak bunga di layar sekaligus
+
+      for (let i = 0; i < petalCount; i++) {
+          const petal = document.createElement('div');
+          petal.className = 'petal';
+          
+          // Parameter acak agar gerakan natural dan dinamis
+          const size = Math.random() * 12 + 8; // Ukuran lebar kelopak
+          petal.style.width = size + 'px';
+          petal.style.height = size + 'px';
+          petal.style.left = Math.random() * window.innerWidth + 'px';
+          petal.style.top = Math.random() * -50 - 20 + 'px';
+          
+          const duration = Math.random() * 5 + 6; // Durasi jatuh melayang (6s-11s)
+          petal.style.animationDuration = duration + 's';
+          
+          const delay = Math.random() * 8; // Variasi waktu tunggu muncul
+          petal.style.animationDelay = delay + 's';
+
+          container.appendChild(petal);
+      }
+  }
+
   document.addEventListener("DOMContentLoaded", function() {
-      // 2. Script Efek Header blur & background putih saat scroll
+      // 3. Efek Sticky Nav Blur saat layar di-scroll
       window.addEventListener("scroll", function() {
           const header = document.querySelector(".header");
           if (window.scrollY > 50) {
@@ -1083,7 +839,7 @@
           }
       });
 
-      // 3. Script Pendeteksi Scroll Animasi (Reveal on Scroll)
+      // 4. Detektor Elemen Gulir Animasi Masuk (Scroll Reveal Engine)
       window.addEventListener("scroll", revealElements);
       
       function revealElements() {
@@ -1091,7 +847,7 @@
           for (let i = 0; i < reveals.length; i++) {
               const windowHeight = window.innerHeight;
               const elementTop = reveals[i].getBoundingClientRect().top;
-              const elementVisible = 120; // Sensivitas pemunculan (px)
+              const elementVisible = 100;
 
               if (elementTop < windowHeight - elementVisible) {
                   reveals[i].classList.add("active");
@@ -1099,7 +855,7 @@
           }
       }
 
-      // 4. Logic Input label melayang agar terdeteksi jika terisi data
+      // 5. Kontrol Label Input Interaktif (Floating Input Labels)
       const inputs = document.querySelectorAll('.input-custom');
       inputs.forEach(input => {
           input.addEventListener('blur', function() {
@@ -1111,7 +867,7 @@
           });
       });
 
-      // 5. LOGIC LIVE GUESTBOOK (Buku Tamu Persisten Lokal Browser)
+      // 6. Sistem Penyimpanan Buku Tamu Lokal (Local Storage Engine)
       const rsvpForm = document.getElementById("rsvpForm");
       const guestbookList = document.getElementById("guestbookList");
 
@@ -1124,7 +880,7 @@
           guestbookList.innerHTML = "";
           [...guestsData].reverse().forEach(guest => {
               const card = document.createElement("div");
-              card.className = "guest-card animate-fade-in";
+              card.className = "guest-card";
               
               const statusClass = guest.status === "Hadir" ? "status-hadir" : "status-absen";
               
@@ -1139,7 +895,6 @@
           });
       }
 
-      // Handler form submit
       rsvpForm.addEventListener("submit", function(e) {
           e.preventDefault();
 
@@ -1156,23 +911,17 @@
           guestsData.push(newGuest);
           localStorage.setItem("wedding_guests", JSON.stringify(guestsData));
 
-          // Reset formulir setelah disubmit
           rsvpForm.reset();
           inputs.forEach(input => input.classList.remove('has-value'));
           renderGuestbook();
       });
 
-      // Proteksi XSS 
       function escapeHtml(text) {
           return text
-              .replace(/&/g, "&amp;")
-              .replace(/</g, "&lt;")
-              .replace(/>/g, "&gt;")
-              .replace(/"/g, "&quot;")
-              .replace(/'/g, "&#039;");
+              .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;").replace(/'/g, "&#039;");
       }
 
-      // Render awal list buku tamu
       renderGuestbook();
   });
 </script>
