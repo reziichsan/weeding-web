@@ -5,14 +5,14 @@
   <title>Dimas & Rizki Wedding</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- Font Awesome Icons -->
+  <!-- Font Awesome Icons Modern V6 -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     /* Google Fonts Import */
     @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
-    /* Custom Variables - Luxury Romantic Palette */
+    /* Custom Variables - Luxury Romantic Palette 2026 */
     :root {
         --primary: #c99a6b;         
         --primary-light: #f5ebe0;   
@@ -22,8 +22,8 @@
         --font-serif: 'Alex Brush', cursive;
         --font-sans: 'Plus Jakarta Sans', sans-serif;
         --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.02);
-        --shadow-md: 0 20px 50px rgba(19, 15, 12, 0.08);
-        --transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        --shadow-md: 0 25px 60px rgba(19, 15, 12, 0.08);
+        --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         --petal-color: #ffb7c5;
     }
 
@@ -50,7 +50,7 @@
         position: fixed;
         inset: 0;
         z-index: 9999;
-        background: linear-gradient(135deg, #1f2022 0%, #2d2e31 100%);
+        background: linear-gradient(135deg, #151618 0%, #232427 100%);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -62,35 +62,39 @@
     }
 
     .cover-card {
-        background: rgba(255, 255, 255, 0.03);
-        padding: 50px 30px;
-        border-radius: 30px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(10px);
-        max-width: 480px;
+        background: rgba(255, 255, 255, 0.02);
+        padding: 60px 40px;
+        border-radius: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        max-width: 500px;
         width: 100%;
-        box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        box-shadow: 0 40px 80px rgba(0,0,0,0.5);
         position: relative;
     }
 
     .cover-card p {
         font-size: 13px;
         text-transform: uppercase;
-        letter-spacing: 5px;
+        letter-spacing: 6px;
         color: var(--primary);
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
 
     .cover-card h1 {
         font-family: var(--font-serif);
-        font-size: 64px;
+        font-size: 68px;
         font-weight: 400;
-        margin-bottom: 40px;
+        margin-bottom: 50px;
         line-height: 1.2;
+        background: linear-gradient(to right, #ffffff, #ffe3c2, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
-    /* Wax Seal Button Effect */
-    .wax-seal-wrapper {
+    /* PERBAIKAN TOTAL: Tombol Buka Undangan (Premium 3D Wax Seal) */
+    .wax-seal-container {
         position: relative;
         display: inline-block;
         cursor: pointer;
@@ -98,34 +102,56 @@
     }
 
     .wax-seal {
-        width: 80px;
-        height: 80px;
-        background: radial-gradient(#d4a373, #b98a5c);
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, #dca873 0%, #a67645 70%, #7d5226 100%);
         border-radius: 50%;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3), inset 0 2px 5px rgba(255,255,255,0.3);
+        box-shadow: 
+            0 10px 25px rgba(0,0,0,0.4), 
+            inset 0 4px 8px rgba(255,255,255,0.3),
+            inset 0 -4px 10px rgba(0,0,0,0.4);
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-size: 24px;
-        color: #fff;
-        font-family: var(--font-serif);
-        font-weight: bold;
         transition: var(--transition);
-        border: 3px double rgba(255,255,255,0.2);
+        border: 4px double rgba(255,255,255,0.15);
+        position: relative;
     }
 
-    .wax-seal-wrapper:hover .wax-seal {
-        transform: scale(1.08) rotate(10deg);
-        box-shadow: 0 12px 25px rgba(212, 163, 115, 0.4);
+    .wax-seal::before {
+        content: '';
+        position: absolute;
+        inset: -8px;
+        border: 1px dashed rgba(201, 154, 107, 0.4);
+        border-radius: 50%;
+        animation: rotateSeal 12s linear infinite;
     }
 
-    .seal-label {
-        display: block;
-        font-size: 11px;
-        letter-spacing: 2px;
+    .wax-seal i {
+        font-size: 20px;
+        color: #fff;
+        margin-bottom: 4px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    .wax-seal span {
+        font-size: 9px;
+        font-weight: 700;
         text-transform: uppercase;
-        margin-top: 15px;
-        opacity: 0.7;
+        letter-spacing: 1px;
+        color: rgba(255,255,255,0.9);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    .wax-seal-container:hover .wax-seal {
+        transform: scale(1.08) translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.4);
+    }
+
+    @keyframes rotateSeal {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
     }
 
     .wedding-cover.opened {
@@ -134,14 +160,14 @@
         pointer-events: none;
     }
 
-    /* ==================== FLOATING MUSIC PLAYER ==================== */
+    /* ==================== PERBAIKAN TOTAL: MUSIC PLAYER CARDS VINYL ==================== */
     .music-player {
         position: fixed;
         bottom: 30px;
         right: 30px;
         z-index: 999;
-        width: 50px;
-        height: 50px;
+        width: 55px;
+        height: 55px;
         background-color: #ffffff;
         border-radius: 50%;
         display: flex;
@@ -151,7 +177,7 @@
         cursor: pointer;
         color: var(--primary);
         transition: var(--transition);
-        border: 1px solid var(--primary-light);
+        border: 2px solid var(--primary-light);
         visibility: hidden;
         opacity: 0;
     }
@@ -161,12 +187,24 @@
         opacity: 1;
     }
 
-    .music-player.playing {
-        animation: pulse-soft 2s infinite linear;
+    .music-player i {
+        font-size: 16px;
+        z-index: 2;
+        transition: var(--transition);
     }
 
-    .music-player i {
-        font-size: 18px;
+    .music-player::after {
+        content: '';
+        position: absolute;
+        inset: 4px;
+        border: 2px dashed var(--primary-light);
+        border-radius: 50%;
+        animation: rotateSeal 8s linear infinite;
+        animation-play-state: paused;
+    }
+
+    .music-player.playing::after {
+        animation-play-state: running;
     }
 
     /* ==================== FALLING PETALS ANIMATION ==================== */
@@ -191,7 +229,7 @@
         100% { transform: translate(250px, 100vh) rotate(360deg) scale(1); opacity: 0; }
     }
 
-    /* ==================== SCROLL REVEAL ANIMS ==================== */
+    /* ==================== SCROLL REVEAL STYLES ==================== */
     .reveal {
         opacity: 0;
         transform: translateY(50px) scale(0.98);
@@ -207,7 +245,7 @@
 
     @keyframes float {
         0%, 100% { transform: translateY(0) scale(1); }
-        50% { transform: translateY(-10px) scale(1.1); }
+        50% { transform: translateY(-10px) scale(1.06); }
     }
 
     @keyframes pulse-soft {
@@ -360,11 +398,24 @@
         letter-spacing: 4px;
     }
 
-    /* ==================== HAPPY COUPLE 3D OPEN-BOOK DESIGN ==================== */
+    /* ==================== LUXURY HAPPY COUPLE 3D BOOK-OPEN ==================== */
     .couple-section {
         padding: 140px 0;
         position: relative;
     }
+
+    /* Mengisi ruang kosong kanan kiri dengan dekorasi art geometris abstrak */
+    .couple-section::before, .couple-section::after {
+        content: '';
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border: 1px solid rgba(201, 154, 107, 0.08);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    .couple-section::before { left: -100px; top: 20%; }
+    .couple-section::after { right: -100px; bottom: 10%; }
 
     .couple-grid {
         display: flex;
@@ -377,8 +428,8 @@
     .couple-card {
         flex: 1;
         background-color: #ffffff;
-        padding: 60px 45px;
-        border-radius: 30px;
+        padding: 65px 45px;
+        border-radius: 35px;
         text-align: center;
         box-shadow: var(--shadow-md);
         border: 1px solid rgba(201, 154, 107, 0.08);
@@ -386,18 +437,17 @@
         transform-style: preserve-3d;
     }
 
-    /* Efek Gerakan Halaman Buku Terbuka Dinamis */
     .couple-grid .couple-card:first-child { transform-origin: left center; }
     .couple-grid .couple-card:last-child { transform-origin: right center; }
 
     .couple-grid:hover .couple-card:first-child {
-        transform: rotateY(18deg) rotateX(2deg) translateY(-5px);
-        box-shadow: -20px 30px 60px rgba(195, 154, 107, 0.15);
+        transform: rotateY(16deg) rotateX(2deg) translateY(-5px);
+        box-shadow: -20px 30px 60px rgba(195, 154, 107, 0.12);
     }
 
     .couple-grid:hover .couple-card:last-child {
-        transform: rotateY(-18deg) rotateX(2deg) translateY(-5px);
-        box-shadow: 20px 30px 60px rgba(195, 154, 107, 0.15);
+        transform: rotateY(-16deg) rotateX(2deg) translateY(-5px);
+        box-shadow: 20px 30px 60px rgba(195, 154, 107, 0.12);
     }
 
     .avatar-wrapper {
@@ -438,12 +488,55 @@
         font-size: 14px;
         color: var(--text-muted);
         font-weight: 300;
+        padding: 0 10px;
     }
 
     .center-heart {
         color: var(--primary);
         font-size: 36px;
         animation: float 3s ease-in-out infinite;
+    }
+
+    /* PERBAIKAN TOTAL: Tombol Instagram & TikTok Premium Glassmorphism */
+    .social-icons {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .social-icons a {
+        text-decoration: none;
+    }
+
+    .social-icons a i {
+        width: 46px;
+        height: 46px;
+        line-height: 44px;
+        border-radius: 16px;
+        background: rgba(245, 235, 224, 0.4);
+        border: 1.5px solid rgba(201, 154, 107, 0.25);
+        color: var(--dark);
+        font-size: 16px;
+        text-align: center;
+        transition: var(--transition);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    }
+
+    .social-icons a:hover i.fa-instagram {
+        background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
+        color: #ffffff;
+        border-color: transparent;
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 10px 20px rgba(238, 42, 123, 0.3);
+    }
+
+    .social-icons a:hover i.fa-tiktok {
+        background: #000000;
+        color: #ffffff;
+        border-color: transparent;
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     }
 
     /* Story Section */
@@ -581,7 +674,7 @@
 </head>
 <body>
 
-<!-- Background Music Audio Tag (Ganti file audio.mp3 dengan link musik pernikahanmu) -->
+<!-- Background Music Audio Tag -->
 <audio id="weddingMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
 
 <!-- Floating Audio Controller Button -->
@@ -592,14 +685,16 @@
 <!-- Animasi Kelopak Bunga Gugur -->
 <div id="petal-container"></div>
 
-<!-- Cover Undangan dengan Wax Seal Segel -->
+<!-- Cover Undangan dengan Premium Wax Seal Segel -->
 <div id="weddingCover" class="wedding-cover">
   <div class="cover-card">
     <p>The Wedding Invitation of</p>
     <h1>Dimas & Rizki</h1>
-    <div class="wax-seal-wrapper" onclick="openInvitation()">
-      <div class="wax-seal">D & R</div>
-      <span class="seal-label">Ketuk Untuk Membuka</span>
+    <div class="wax-seal-container" onclick="openInvitation()">
+      <div class="wax-seal">
+        <i class="fas fa-envelope-open-text"></i>
+        <span>Buka</span>
+      </div>
     </div>
   </div>
 </div>
@@ -651,8 +746,8 @@
         <h3>Dimas</h3>
         <p>Putra tercinta dari Keluarga Bpk. Lorem & Ibu Ipsum. Langkah tegap siap menempuh takdir baru.</p>
         <div class="social-icons">
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-tiktok"></i></a>
+          <a href="#" target="_blank" title="Instagram Dimas"><i class="fab fa-instagram"></i></a>
+          <a href="#" target="_blank" title="TikTok Dimas"><i class="fab fa-tiktok"></i></a>
         </div>
       </div>
       
@@ -668,8 +763,8 @@
         <h3>Rizki</h3>
         <p>Putri tercinta dari Keluarga Bpk. Dolor & Ibu Sit. Senyum ketulusan yang menanti bahtera janji suci.</p>
         <div class="social-icons">
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-tiktok"></i></a>
+          <a href="#" target="_blank" title="Instagram Rizki"><i class="fab fa-instagram"></i></a>
+          <a href="#" target="_blank" title="TikTok Rizki"><i class="fab fa-tiktok"></i></a>
         </div>
       </div>
     </div>
@@ -823,7 +918,6 @@
       const cover = document.getElementById("weddingCover");
       cover.classList.add("opened");
       
-      // Munculkan tombol pemutar musik
       musicBtn.classList.add("show");
       playMusic();
       
