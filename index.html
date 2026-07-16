@@ -4,8 +4,739 @@
   <meta charset="utf-8">
   <title>Dimas & Rizki Wedding</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Font Awesome Icons & Fonts -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+  <style>
+    /* Custom Fonts & Variable 2026 Trend */
+    :root {
+        --primary: #c99a6b;         /* Modern luxury gold accent */
+        --primary-light: #f5ebe0;   /* Light tint background */
+        --dark: #1f2022;            /* Rich dark charcoal */
+        --text-muted: #7f8c8d;
+        --bg-main: #faf8f5;         /* Warm clean soft background */
+        --font-serif: 'Alex Brush', cursive;
+        --font-sans: 'Plus Jakarta Sans', sans-serif;
+        --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.02);
+        --shadow-md: 0 10px 30px rgba(19, 15, 12, 0.05);
+        --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: var(--font-sans);
+        background-color: var(--bg-main);
+        color: var(--dark);
+        overflow-x: hidden;
+        line-height: 1.7;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    @keyframes pulse-soft {
+        0%, 100% { transform: scale(1); opacity: 0.3; }
+        50% { transform: scale(1.05); opacity: 0.6; }
+    }
+
+    .animate-fade-in {
+        animation: fadeInUp 1.2s var(--transition) forwards;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 30px;
+    }
+
+    /* Section Title */
+    .section-title {
+        text-align: center;
+        margin-bottom: 70px;
+        position: relative;
+    }
+
+    .section-title h2 {
+        font-family: var(--font-serif);
+        font-size: 56px;
+        color: var(--primary);
+        font-weight: 400;
+        line-height: 1.2;
+    }
+
+    .section-title::after {
+        content: '✿';
+        display: block;
+        color: var(--primary);
+        font-size: 14px;
+        margin-top: 10px;
+        opacity: 0.5;
+    }
+
+    /* Header Navigation */
+    .header {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: 1000;
+        transition: var(--transition);
+        padding: 25px 0;
+    }
+
+    .header.fixed {
+        background-color: rgba(250, 248, 245, 0.85);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(201, 154, 107, 0.1);
+        padding: 15px 0;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .header .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .header .logo a {
+        font-family: var(--font-serif);
+        font-size: 36px;
+        color: #ffffff;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .header.fixed .logo a {
+        color: var(--dark);
+    }
+
+    .header .nav ul {
+        list-style: none;
+        display: flex;
+        gap: 35px;
+    }
+
+    .header .nav ul li a {
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: var(--transition);
+        position: relative;
+        padding: 8px 0;
+    }
+
+    .header.fixed .nav ul li a {
+        color: var(--dark);
+    }
+
+    .header .nav ul li a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: var(--primary);
+        transition: var(--transition);
+    }
+
+    .header .nav ul li a:hover::after {
+        width: 100%;
+    }
+
+    .header .nav ul li a:hover {
+        color: var(--primary) !important;
+    }
+
+    /* Hero Banner */
+    .home-section {
+        position: relative;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background-color: #222;
+    }
+
+    .home-bg {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-image: url('img/slides/slide-1.jpg'); /* Sesuaikan path gambarmu */
+        background-size: cover;
+        background-position: center;
+        z-index: 1;
+    }
+
+    .home-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.55));
+        z-index: 2;
+    }
+
+    .home-content {
+        position: relative;
+        z-index: 3;
+        text-align: center;
+        color: #ffffff;
+    }
+
+    .home-content p {
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        font-weight: 300;
+        margin-bottom: 15px;
+        opacity: 0.9;
+    }
+
+    .home-content h1 {
+        font-family: var(--font-serif);
+        font-size: 96px;
+        font-weight: 400;
+        margin: 15px 0;
+        text-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .home-content span {
+        font-size: 14px;
+        display: inline-block;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        background-color: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(8px);
+        border-radius: 50px;
+        padding: 10px 35px;
+        letter-spacing: 3px;
+        margin-top: 25px;
+    }
+
+    /* Couple Section */
+    .couple-section {
+        padding: 120px 0;
+    }
+
+    .couple-grid {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .couple-card {
+        flex: 1;
+        background-color: #ffffff;
+        padding: 60px 40px;
+        border-radius: 24px;
+        text-align: center;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+    }
+
+    .couple-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(195, 154, 107, 0.1);
+    }
+
+    .couple-card img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 30px;
+        border: 6px solid var(--primary-light);
+    }
+
+    .couple-card h3 {
+        font-family: var(--font-serif);
+        font-size: 42px;
+        color: var(--dark);
+        margin-bottom: 15px;
+    }
+
+    .couple-card p {
+        font-size: 14px;
+        color: var(--text-muted);
+        font-weight: 300;
+    }
+
+    .center-heart {
+        color: var(--primary);
+        font-size: 24px;
+        animation: float 4s ease-in-out infinite;
+        padding: 0 20px;
+    }
+
+    .social-icons {
+        margin-top: 25px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .social-icons a i {
+        width: 38px;
+        height: 38px;
+        line-height: 38px;
+        border-radius: 50%;
+        background-color: var(--primary-light);
+        color: var(--primary);
+        font-size: 14px;
+        text-align: center;
+        transition: var(--transition);
+    }
+
+    .social-icons a:hover i {
+        background-color: var(--primary);
+        color: #ffffff;
+        transform: translateY(-3px);
+    }
+
+    /* Story Section */
+    .story-section {
+        padding: 120px 0;
+        background-color: #fbf9f6;
+    }
+
+    .story-timeline {
+        position: relative;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .story-timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        width: 1px;
+        height: 100%;
+        top: 0;
+        background: linear-gradient(to bottom, transparent, var(--primary) 15%, var(--primary) 85%, transparent);
+        transform: translateX(-50%);
+    }
+
+    .story-item {
+        display: flex;
+        margin-bottom: 80px;
+        position: relative;
+        width: 100%;
+    }
+
+    .story-item:last-child { margin-bottom: 0; }
+
+    .story-dot {
+        position: absolute;
+        left: 50%;
+        top: 15px;
+        transform: translateX(-50%);
+        width: 12px;
+        height: 12px;
+        background-color: var(--primary);
+        border-radius: 50%;
+        box-shadow: 0 0 0 6px #fbf9f6, 0 0 20px var(--primary);
+        z-index: 10;
+    }
+
+    .story-panel {
+        width: 45%;
+        background: #ffffff;
+        padding: 35px;
+        border-radius: 20px;
+        box-shadow: var(--shadow-md);
+        position: relative;
+        transition: var(--transition);
+    }
+
+    .story-panel:hover {
+        transform: translateY(-4px);
+    }
+
+    .story-item:nth-child(odd) { justify-content: flex-start; }
+    .story-item:nth-child(even) { justify-content: flex-end; }
+
+    .story-panel h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 8px;
+    }
+
+    .story-panel .date {
+        font-size: 13px;
+        color: var(--primary);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .story-panel p {
+        font-size: 14px;
+        color: var(--text-muted);
+    }
+
+    /* Event Section */
+    .event-section {
+        padding: 140px 0;
+        background: linear-gradient(135deg, rgba(31,32,34,0.96) 0%, rgba(45,46,49,0.92) 100%);
+    }
+
+    .event-container {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+    }
+
+    .event-card {
+        flex: 0 1 450px;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 60px 40px;
+        border-radius: 24px;
+        text-align: center;
+        color: #ffffff;
+        transition: var(--transition);
+    }
+
+    .event-card h3 {
+        font-family: var(--font-serif);
+        font-size: 46px;
+        color: var(--primary);
+        font-weight: 400;
+        margin-bottom: 25px;
+    }
+
+    .event-card .date {
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .event-card .time {
+        font-size: 14px;
+        color: var(--primary);
+        margin-bottom: 30px;
+        display: block;
+    }
+
+    .event-card p {
+        font-size: 14px;
+        opacity: 0.75;
+        font-weight: 300;
+    }
+
+    /* Gallery Section */
+    .gallery-section {
+        padding: 120px 0;
+    }
+
+    .gallery-masonry {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-auto-rows: 240px;
+        gap: 20px;
+    }
+
+    .gallery-wrapper {
+        overflow: hidden;
+        border-radius: 20px;
+        position: relative;
+        box-shadow: var(--shadow-md);
+    }
+
+    .gallery-wrapper:nth-child(2n) { grid-row: span 2; }
+
+    .gallery-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gallery-wrapper:hover img {
+        transform: scale(1.08);
+    }
+
+    /* RSVP Section Layout */
+    .rsvp-section {
+        padding: 120px 0;
+        background-color: var(--primary-light);
+    }
+
+    .rsvp-block-container {
+        display: flex;
+        background-color: #ffffff;
+        border-radius: 32px;
+        overflow: hidden;
+        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.05);
+        margin-bottom: 50px;
+    }
+
+    .rsvp-info-side {
+        flex: 1;
+        background-color: var(--dark);
+        color: #ffffff;
+        padding: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+    }
+
+    .rsvp-info-side h3 {
+        font-family: var(--font-serif);
+        font-size: 52px;
+        color: var(--primary);
+        margin-bottom: 20px;
+    }
+
+    .rsvp-info-side p {
+        font-size: 15px;
+        opacity: 0.7;
+        margin-bottom: 40px;
+        font-weight: 300;
+    }
+
+    .info-details-item {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+
+    .info-details-item i {
+        width: 46px;
+        height: 46px;
+        line-height: 46px;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 14px;
+        color: var(--primary);
+    }
+
+    .rsvp-form-side {
+        flex: 1.3;
+        padding: 60px;
+    }
+
+    .form-group-custom {
+        position: relative;
+        margin-bottom: 35px;
+    }
+
+    .input-custom {
+        width: 100%;
+        padding: 12px 0;
+        background: transparent;
+        border: none;
+        border-bottom: 1.5px solid #e0e0e0;
+        font-family: var(--font-sans);
+        font-size: 15px;
+        color: var(--dark);
+        transition: var(--transition);
+    }
+
+    .input-custom:focus {
+        outline: none;
+        border-bottom-color: var(--primary);
+    }
+
+    .label-custom {
+        position: absolute;
+        left: 0;
+        top: 12px;
+        font-size: 14px;
+        color: var(--text-muted);
+        pointer-events: none;
+        transition: var(--transition);
+    }
+
+    /* Active dynamic classes for form labels */
+    .input-custom:focus ~ .label-custom,
+    .input-custom:valid ~ .label-custom,
+    .input-custom.has-value ~ .label-custom {
+        top: -15px;
+        font-size: 12px;
+        color: var(--primary);
+        font-weight: 600;
+    }
+
+    .btn-premium {
+        width: 100%;
+        padding: 16px 35px;
+        background-color: var(--dark);
+        color: #ffffff;
+        border: none;
+        border-radius: 14px;
+        font-family: var(--font-sans);
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .btn-premium:hover {
+        background-color: var(--primary);
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(201, 154, 107, 0.25);
+    }
+
+    /* ==================== NEW LOGIC: LIVE GUESTBOOK LIST ==================== */
+    .guestbook-container {
+        background: #ffffff;
+        border-radius: 32px;
+        padding: 50px 40px;
+        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.03);
+    }
+
+    .guestbook-title {
+        font-family: var(--font-serif);
+        font-size: 42px;
+        color: var(--dark);
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .guestbook-list {
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+
+    /* Scrollbar Style */
+    .guestbook-list::-webkit-scrollbar {
+        width: 6px;
+    }
+    .guestbook-list::-webkit-scrollbar-thumb {
+        background-color: var(--primary-light);
+        border-radius: 10px;
+    }
+
+    .guest-card {
+        padding: 20px;
+        border-bottom: 1px solid #f0f0f0;
+        margin-bottom: 15px;
+        background-color: #fafafa;
+        border-radius: 16px;
+        animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .guest-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .guest-name {
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--dark);
+    }
+
+    .guest-status {
+        font-size: 11px;
+        padding: 4px 12px;
+        border-radius: 30px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .status-hadir {
+        background-color: #e2f0d9;
+        color: #385723;
+    }
+
+    .status-absen {
+        background-color: #fce4d6;
+        color: #c65911;
+    }
+
+    .guest-msg {
+        font-size: 14px;
+        color: var(--text-muted);
+        font-style: italic;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 100px 0;
+        background-color: #ffffff;
+        text-align: center;
+    }
+
+    .footer .couple-name {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 240px;
+        height: 240px;
+        margin-bottom: 40px;
+    }
+
+    .footer .couple-name img {
+        position: absolute;
+        inset: 0;
+        width: 100%; height: 100%;
+        animation: pulse-soft 4s linear infinite;
+    }
+
+    .footer .couple-name h2 {
+        font-family: var(--font-serif);
+        font-size: 48px;
+        color: var(--dark);
+        font-weight: 400;
+        z-index: 2;
+    }
+
+    .copyright-text {
+        text-align: center;
+        font-size: 13px;
+        color: var(--text-muted);
+        padding: 30px 0;
+        background-color: #ffffff;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    @media(max-width: 991px) {
+        .couple-grid, .event-container, .rsvp-block-container {
+            flex-direction: column;
+        }
+        .story-timeline::before, .story-dot { left: 20px; }
+        .story-panel { width: calc(100% - 50px); margin-left: auto !important; }
+        .rsvp-info-side, .rsvp-form-side { padding: 40px 30px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -13,7 +744,7 @@
   <div class="container">
     <div class="row">
       <div class="logo">
-        <a href="index.html">D & R</a>
+        <a href="#">D & R</a>
       </div>
       <nav class="nav">
         <ul>
@@ -29,9 +760,9 @@
   </div>
 </header>
 
-<!-- Hero Section -->
+<!-- Hero Home -->
 <section id="home" class="home-section">
-  <div class="slide active" style="background-image: url('img/slides/slide-1.jpg');"></div>
+  <div class="home-bg"></div>
   <div class="container">
     <div class="home-content animate-fade-in">
       <p>Save The Date</p>
@@ -51,7 +782,7 @@
       <div class="couple-card">
         <img src="img/groom.png" alt="Dimas">
         <h3>Dimas</h3>
-        <p>Putra dari Pasangan Bpk. Lorem & Ibu Ipsum. Sosok pekerja keras yang siap membangun pelabuhan cerita hidup baru.</p>
+        <p>Putra dari Keluarga Bpk. Lorem & Ibu Ipsum. Menatap masa depan bersama dengan penuh ketetapan hati.</p>
         <div class="social-icons">
           <a href="#"><i class="fab fa-instagram"></i></a>
           <a href="#"><i class="fab fa-tiktok"></i></a>
@@ -65,7 +796,7 @@
       <div class="couple-card">
         <img src="img/bride (2).jpeg" alt="Rizki">
         <h3>Rizki</h3>
-        <p>Putri dari Pasangan Bpk. Dolor & Ibu Sit. Jiwa hangat penuh kebahagiaan yang melengkapi perjalanan akhir kapalnya.</p>
+        <p>Putri dari Keluarga Bpk. Dolor & Ibu Sit. Bersiap melangkah bersama melabuhkan kebahagiaan sejati.</p>
         <div class="social-icons">
           <a href="#"><i class="fab fa-instagram"></i></a>
           <a href="#"><i class="fab fa-tiktok"></i></a>
@@ -82,25 +813,22 @@
       <h2>Our Love Story</h2>
     </div>
     <div class="story-timeline">
-      
       <div class="story-item">
         <div class="story-dot"></div>
         <div class="story-panel">
           <span class="date">31 Feb 2023</span>
           <h3>Pertemuan Pertama</h3>
-          <p>Awal mula tak sengaja di sebuah kedai kopi mini, mencairkan kecanggungan dan memunculkan kecocokan pandangan pertama.</p>
+          <p>Berawal dari tatapan tidak sengaja di sudut kedai kopi kecil yang hangat, membuka obrolan panjang tanpa akhir.</p>
         </div>
       </div>
-
       <div class="story-item">
         <div class="story-dot"></div>
         <div class="story-panel">
           <span class="date">14 Nov 2025</span>
-          <h3>Komitmen Bersama</h3>
-          <p>Setelah melewati badai ujian waktu dan jarak, kami memutuskan untuk membawa jangkar hubungan ini ke arah yang pasti.</p>
+          <h3>Komitmen Suci</h3>
+          <p>Menyatukan visi kehidupan, melewati berbagai fase kedewasaan dan memutuskan mengikat janji seumur hidup.</p>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -143,16 +871,15 @@
   </div>
 </section>
 
-<!-- ==================== SIGNIFIKAN: NEW RSVP SECTION LAYOUT ==================== -->
+<!-- RSVP Section & Live Guestbook -->
 <section id="rsvp" class="rsvp-section">
   <div class="container">
+    
+    <!-- Form Block -->
     <div class="rsvp-block-container">
-      
-      <!-- Info Panel (Kiri) -->
       <div class="rsvp-info-side">
         <h3>Simpan Tempatmu</h3>
-        <p>Merupakan kebahagiaan tak ternilai jika Anda berkenan hadir menjadi bagian dari saksi ikrar suci janji pernikahan kami.</p>
-        
+        <p>Merupakan kehormatan besar bagi kami apabila Anda berkenan hadir memberikan doa restu secara langsung.</p>
         <div class="info-details">
           <div class="info-details-item">
             <i class="fas fa-calendar-alt"></i>
@@ -171,48 +898,40 @@
         </div>
       </div>
 
-      <!-- Form Panel (Kanan) -->
       <div class="rsvp-form-side">
-        <form action="#" class="rsvp-fluid-form">
-          
+        <form id="rsvpForm" class="rsvp-fluid-form">
           <div class="form-group-custom">
-            <input type="text" class="input-custom" required onchange="this.setAttribute('value', this.value);" value="">
-            <label class="label-custom">Nama Lengkap Anda</label>
+            <input type="text" id="rsvpName" class="input-custom" required autocomplete="off">
+            <label class="label-custom">Nama Lengkap</label>
           </div>
 
           <div class="form-group-custom">
-            <input type="email" class="input-custom" required onchange="this.setAttribute('value', this.value);" value="">
-            <label class="label-custom">Alamat Email Aktif</label>
-          </div>
-
-          <div class="form-group-custom">
-            <select class="input-custom" required>
+            <select id="rsvpStatus" class="input-custom" required>
               <option value="" disabled selected hidden></option>
-              <option value="1">1 Pax (Sendiri)</option>
-              <option value="2">2 Pax (Maksimal)</option>
-            </select>
-            <label class="label-custom">Jumlah Kehadiran Undangan</label>
-          </div>
-
-          <div class="form-group-custom">
-            <select class="input-custom" required>
-              <option value="" disabled selected hidden></option>
-              <option value="hadir">Saya bersedia untuk hadir</option>
-              <option value="absen">Maaf, halangan hadir</option>
+              <option value="Hadir">Saya akan Hadir</option>
+              <option value="Absen">Maaf, Tidak Bisa Hadir</option>
             </select>
             <label class="label-custom">Konfirmasi Kehadiran</label>
           </div>
 
           <div class="form-group-custom">
-            <textarea class="input-custom" style="height: 60px;" required onchange="this.setAttribute('value', this.value);" value=""></textarea>
-            <label class="label-custom">Berikan Ucapan / Pesan Hangat</label>
+            <textarea id="rsvpMessage" class="input-custom" style="height: 60px;" required></textarea>
+            <label class="label-custom">Pesan atau Ucapan Hangat</label>
           </div>
 
-          <button type="submit" class="btn-premium">Kirim Konfirmasi Kehadiran</button>
+          <button type="submit" class="btn-premium">Kirim Konfirmasi</button>
         </form>
       </div>
-
     </div>
+
+    <!-- Live Guestbook List Block -->
+    <div class="guestbook-container">
+      <h3 class="guestbook-title">Ucapan & Doa Restu</h3>
+      <div id="guestbookList" class="guestbook-list">
+        <!-- Data Ucapan akan masuk secara dinamis ke sini via JS -->
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -220,7 +939,7 @@
 <footer class="footer">
   <div class="container">
     <div class="couple-name">
-      <img src="img/flower-circle.png" alt="Flower Layer">
+      <img src="img/flower-circle.png" alt="Flower Frame">
       <h2>Dimas<br>&<br>Rizki</h2>
     </div>
   </div>
@@ -228,19 +947,99 @@
 
 <p class="copyright-text">Copyright &copy; 2026 Rezi Ichsan — All Rights Reserved</p>
 
-<!-- JS Scripts Core Loading -->
-<script src='js/jquery.min.js' type='text/javascript'></script>
-<script src='js/scrollIt.min.js' type='text/javascript'></script>
-<script src="js/main.js"></script>
-
+<!-- JavaScript Logic Terintegrasi -->
 <script>
-  // Simple Animation script trigger for header background blurring
-  $(window).on("scroll", function() {
-      if ($(window).scrollTop() > 50) {
-          $(".header").addClass("fixed");
-      } else {
-          $(".header").removeClass("fixed");
+  document.addEventListener("DOMContentLoaded", function() {
+      // 1. Script Efek Header blur saat scroll
+      window.addEventListener("scroll", function() {
+          const header = document.querySelector(".header");
+          if (window.scrollY > 50) {
+              header.classList.add("fixed");
+          } else {
+              header.classList.remove("fixed");
+          }
+      });
+
+      // 2. Logic Input label melayang agar terdeteksi jika terisi data
+      const inputs = document.querySelectorAll('.input-custom');
+      inputs.forEach(input => {
+          input.addEventListener('blur', function() {
+              if (this.value.trim() !== "") {
+                  this.classList.add('has-value');
+              } else {
+                  this.classList.remove('has-value');
+              }
+          });
+      });
+
+      // 3. LOGIC LIVE GUESTBOOK (Buku Tamu Realtime Lokal)
+      const rsvpForm = document.getElementById("rsvpForm");
+      const guestbookList = document.getElementById("guestbookList");
+
+      // Load data dari localStorage saat halaman pertama kali dibuka
+      let guestsData = JSON.parse(localStorage.getItem("wedding_guests")) || [
+          // Data dummy bawaan awal biar tidak kosong saat dibuka pertama kali
+          { name: "Rezi Ichsan", status: "Hadir", message: "Selamat menempuh hidup baru Dimas & Rizki! Semoga samawa selalu dunia akhirat!" },
+          { name: "Keluarga Jhon", status: "Absen", message: "Selamat ya! Maaf berhalangan hadir karena luar kota, doa terbaik untuk kalian berdua." }
+      ];
+
+      function renderGuestbook() {
+          guestbookList.innerHTML = "";
+          // Membalik urutan data (array reverse) agar data inputan terbaru muncul di paling atas
+          [...guestsData].reverse().forEach(guest => {
+              const card = document.createElement("div");
+              card.className = "guest-card";
+              
+              const statusClass = guest.status === "Hadir" ? "status-hadir" : "status-absen";
+              
+              card.innerHTML = `
+                  <div class="guest-header">
+                      <span class="guest-name">${escapeHtml(guest.name)}</span>
+                      <span class="guest-status ${statusClass}">${guest.status}</span>
+                  </div>
+                  <p class="guest-msg">"${escapeHtml(guest.message)}"</p>
+              `;
+              guestbookList.appendChild(card);
+          });
       }
+
+      // Handler Submit Form
+      rsvpForm.addEventListener("submit", function(e) {
+          e.preventDefault();
+
+          const nameInput = document.getElementById("rsvpName");
+          const statusInput = document.getElementById("rsvpStatus");
+          const messageInput = document.getElementById("rsvpMessage");
+
+          // Bikin object data baru
+          const newGuest = {
+              name: nameInput.value,
+              status: statusInput.value,
+              message: messageInput.value
+          };
+
+          // Masukkan ke array data & simpan ke localStorage
+          guestsData.push(newGuest);
+          localStorage.setItem("wedding_guests", JSON.stringify(guestsData));
+
+          // Reset data form & update tampilan list ucapan
+          rsvpForm.reset();
+          inputs.forEach(input => input.classList.remove('has-value'));
+          renderGuestbook();
+      });
+
+      // Fungsi pengaman agar input HTML dari user aman dari XSS script injector
+      function escapeHtml(text) {
+          return text
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;")
+              .replace(/'/g, "&#039;");
+      }
+
+      // Jalankan render list di awal render halaman
+      renderGuestbook();
   });
 </script>
 </body>
